@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thailand Lighthouse — Intelligence Brief · สรุปข้อมูลเชิงกลยุทธ์</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&family=Sarabun:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --green: #00853F;
+    --green-dark: #005C2B;
+    --green-light: #E8F5EE;
+    --green-mid: #00A651;
+    --gold: #F5A623;
+    --gold-light: #FEF6E4;
+    --navy: #1A2744;
+    --navy-light: #2D3F6B;
+    --text: #1E1E1E;
+    --text-muted: #6B7280;
+    --border: #E5E7EB;
+    --bg: #F8FAFA;
+    --white: #FFFFFF;
+    --red: #DC2626;
+    --red-light: #FEF2F2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* LANG TOGGLE */
+  .lang-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 999;
+    display: flex;
+    gap: 4px;
+    background: rgba(26,39,68,0.9);
+    border-radius: 20px;
+    padding: 4px;
+    backdrop-filter: blur(8px);
+  }
+  .lang-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Sarabun', sans-serif;
+    letter-spacing: 0.5px;
+  }
+  .lang-btn.active {
+    background: var(--green-mid);
+    color: white;
+  }
+  .lang-btn:not(.active) {
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+  }
+  .lang-btn:hover:not(.active) {
+    color: white;
+  }
+
+  /* BILINGUAL PAIRS */
+  .en { display: block; }
+  .th { display: none; }
+  body.show-th .en { display: none; }
+  body.show-th .th { display: block; }
+  body.show-both .en { display: block; }
+  body.show-both .th {
+    display: block;
+    font-size: 0.92em;
+    color: var(--text-muted);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  /* Inline bilingual for headings */
+  .bi-heading { }
+  .bi-heading .th-sub {
+    display: none;
+    font-size: 0.6em;
+    font-weight: 500;
+    color: rgba(255,255,255,0.55);
+    font-family: 'Sarabun', sans-serif;
+    margin-left: 8px;
+    font-style: normal;
+  }
+  body.show-th .bi-heading .en-text { display: none; }
+  body.show-th .bi-heading .th-text { display: inline; }
+  body.show-both .bi-heading .th-sub { display: inline; }
+  .bi-heading .th-text { display: none; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 270px;
+    min-width: 270px;
+    background: var(--navy);
+    position: fixed;
+    top: 0; left: 0;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-logo {
+    padding: 28px 24px 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .sidebar-logo .tag {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green-mid);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: white;
+    line-height: 1.3;
+  }
+
+  .sidebar-logo p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 6px;
+  }
+
+  .sidebar-nav { padding: 16px 0; flex: 1; }
+  .nav-group { margin-bottom: 4px; }
+
+  .nav-group-label {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    padding: 12px 24px 4px;
+    font-weight: 600;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 24px;
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 400;
+    transition: all 0.15s;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    font-family: 'Sarabun', sans-serif;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: white;
+    background: rgba(255,255,255,0.07);
+    border-left-color: var(--green-mid);
+  }
+
+  .nav-item .num {
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: var(--green-mid);
+  }
+
+  .nav-item-label { line-height: 1.3; }
+  .nav-item-label .nav-th {
+    display: block;
+    font-size: 10px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 1px;
+  }
+  body.show-th .nav-item-label .nav-en { display: none; }
+  body.show-th .nav-item-label .nav-th { color: rgba(255,255,255,0.75); font-size: 12px; }
+
+  .sidebar-footer {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* MAIN CONTENT */
+  .main { margin-left: 270px; flex: 1; min-height: 100vh; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--green-dark) 100%);
+    padding: 72px 64px 64px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,166,81,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,166,81,0.2);
+    border: 1px solid rgba(0,166,81,0.4);
+    color: #6EE7A8;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    max-width: 700px;
+  }
+
+  .hero h1 span { color: #6EE7A8; }
+
+  .hero h1 .h1-th {
+    display: none;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+    margin-top: 6px;
+  }
+  body.show-th .hero h1 .h1-en { display: none; }
+  body.show-th .hero h1 .h1-th { display: block; }
+  body.show-both .hero h1 .h1-th { display: block; color: rgba(255,255,255,0.6); font-size: 22px; }
+
+  .hero p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.72);
+    max-width: 600px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+
+  .hero-stat .val {
+    font-size: 28px;
+    font-weight: 800;
+    color: #6EE7A8;
+    line-height: 1;
+  }
+
+  .hero-stat .lbl {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* CONTENT AREA */
+  .content { padding: 0 64px 80px; }
+
+  /* SECTION */
+  .section {
+    padding: 56px 0 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .section-num {
+    width: 44px;
+    height: 44px;
+    background: var(--green);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+
+  .section-title h2 .h2-th {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: none;
+    margin-top: 2px;
+  }
+  body.show-th .section-title h2 .h2-en { display: none; }
+  body.show-th .section-title h2 .h2-th { display: block; font-size: 22px; color: var(--navy); }
+  body.show-both .section-title h2 .h2-th { display: block; }
+
+  .section-title p { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+
+  /* CARDS */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+  }
+
+  .card.green { border-left: 4px solid var(--green); }
+  .card.gold { border-left: 4px solid var(--gold); }
+  .card.navy { border-left: 4px solid var(--navy); }
+  .card.red { border-left: 4px solid var(--red); }
+
+  .card h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: var(--navy);
+  }
+
+  .card.green h4 { color: var(--green-dark); }
+  .card.gold h4 { color: #92600A; }
+  .card.red h4 { color: var(--red); }
+
+  .card p, .card li { font-size: 13.5px; color: #374151; line-height: 1.65; }
+  .card ul { padding-left: 16px; }
+  .card li { margin-bottom: 4px; }
+
+  /* STAT ROW */
+  .stat-row {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .stat-box {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+  }
+
+  .stat-box .val { font-size: 26px; font-weight: 800; color: var(--green); line-height: 1; }
+  .stat-box .lbl { font-size: 11px; color: var(--text-muted); margin-top: 5px; line-height: 1.4; }
+
+  /* PROSE */
+  .prose { max-width: 820px; }
+
+  .prose h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 28px 0 10px;
+  }
+
+  .prose h3:first-child { margin-top: 0; }
+
+  .prose p { font-size: 14.5px; color: #374151; line-height: 1.75; margin-bottom: 14px; }
+
+  .prose ul, .prose ol { padding-left: 20px; margin-bottom: 14px; }
+
+  .prose li { font-size: 14.5px; color: #374151; line-height: 1.7; margin-bottom: 6px; }
+
+  .prose strong { color: var(--navy); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; margin-bottom: 28px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  th {
+    background: var(--navy);
+    color: white;
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    color: #374151;
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:nth-child(even) td { background: #F9FAFB; }
+  tr:hover td { background: var(--green-light); }
+
+  td.up { color: var(--green); font-weight: 700; }
+  td.down { color: var(--red); font-weight: 700; }
+  td.flat { color: var(--gold); font-weight: 700; }
+
+  .td-bi { }
+  .td-bi .td-th { display: none; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  body.show-th .td-bi .td-en { display: none; }
+  body.show-th .td-bi .td-th { display: block; font-size: 13px; color: #374151; }
+  body.show-both .td-bi .td-th { display: block; }
+
+  /* HIGHLIGHT BOX */
+  .highlight {
+    background: var(--green-light);
+    border: 1px solid rgba(0,133,63,0.25);
+    border-left: 4px solid var(--green);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+
+  .highlight.gold {
+    background: var(--gold-light);
+    border-color: rgba(245,166,35,0.3);
+    border-left-color: var(--gold);
+  }
+
+  .highlight.navy {
+    background: #EEF2FF;
+    border-color: rgba(26,39,68,0.2);
+    border-left-color: var(--navy);
+  }
+
+  .highlight.red {
+    background: var(--red-light);
+    border-color: rgba(220,38,38,0.2);
+    border-left-color: var(--red);
+  }
+
+  .highlight p { font-size: 14px; color: #1F2937; line-height: 1.65; margin: 0; }
+  .highlight strong { color: var(--green-dark); }
+  .highlight.gold strong { color: #92600A; }
+  .highlight.navy strong { color: var(--navy); }
+  .highlight.red strong { color: var(--red); }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .flow-step {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--navy);
+    text-align: center;
+  }
+
+  .flow-step.active { background: var(--green); color: white; border-color: var(--green); }
+  .flow-step.problem { background: var(--red-light); border-color: var(--red); color: var(--red); }
+  .flow-arrow { color: var(--text-muted); font-size: 18px; padding: 0 8px; flex-shrink: 0; }
+
+  /* GENERATION CARDS */
+  .gen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .gen-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    position: relative;
+  }
+
+  .gen-card .gen-tag {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .gen-card.senior .gen-tag { background: #FEE2E2; color: var(--red); }
+  .gen-card.middle .gen-tag { background: #FEF3C7; color: #92600A; }
+  .gen-card.young .gen-tag { background: var(--green-light); color: var(--green-dark); }
+
+  .gen-card h4 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .gen-card .age { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+  .gen-card p { font-size: 13px; color: #4B5563; line-height: 1.6; margin-bottom: 8px; }
+
+  /* REGION TABLE */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .region-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .region-card .region-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+
+  .region-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .region-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); }
+  .region-card .sub { font-size: 11px; color: var(--text-muted); }
+  .region-card p { font-size: 13px; color: #4B5563; line-height: 1.6; margin-bottom: 6px; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+
+  .tag { font-size: 11px; padding: 3px 9px; border-radius: 10px; font-weight: 500; }
+  .tag.crop { background: var(--green-light); color: var(--green-dark); }
+  .tag.soil { background: #FEF3C7; color: #92600A; }
+  .tag.challenge { background: var(--red-light); color: var(--red); }
+
+  /* INNOVATION DIMS */
+  .innov-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .innov-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+  }
+
+  .innov-card .innov-num {
+    width: 32px;
+    height: 32px;
+    background: var(--navy);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .innov-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .innov-card p { font-size: 13px; color: #4B5563; line-height: 1.6; }
+
+  /* JOURNEY STEPS */
+  .journey {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+
+  .journey-step { display: flex; gap: 16px; position: relative; }
+
+  .journey-step:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 40px;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: var(--border);
+  }
+
+  .journey-dot {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--green);
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .journey-body { padding: 8px 0 24px; }
+  .journey-body h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .journey-body p { font-size: 13.5px; color: #4B5563; line-height: 1.6; }
+
+  .journey-body .opportunity {
+    display: inline-block;
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-top: 6px;
+  }
+
+  /* FINAL STORYLINE SECTION */
+  .storyline-section {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 60%, #0D3B1E 100%);
+    margin: 0 -64px;
+    padding: 72px 64px;
+    color: white;
+  }
+
+  .storyline-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .storyline-section .subtitle { color: rgba(255,255,255,0.55); font-size: 15px; margin-bottom: 48px; }
+
+  .story-arc { display: flex; flex-direction: column; gap: 0; max-width: 760px; }
+
+  .story-beat { display: flex; gap: 24px; position: relative; }
+
+  .story-beat:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 21px;
+    top: 44px;
+    width: 2px;
+    height: calc(100% - 12px);
+    background: rgba(255,255,255,0.15);
+  }
+
+  .story-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .story-beat.hook .story-icon { background: rgba(0,166,81,0.25); }
+  .story-beat.context .story-icon { background: rgba(255,255,255,0.12); }
+  .story-beat.tension .story-icon { background: rgba(220,38,38,0.25); }
+  .story-beat.turn .story-icon { background: rgba(245,166,35,0.25); }
+  .story-beat.vision .story-icon { background: rgba(0,166,81,0.35); }
+  .story-beat.ask .story-icon { background: rgba(255,255,255,0.2); }
+
+  .story-body { padding: 8px 0 36px; }
+
+  .story-body .beat-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .story-body h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 10px; line-height: 1.25; }
+  .story-body p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 10px; }
+
+  .story-body .key-lines {
+    background: rgba(255,255,255,0.07);
+    border-left: 3px solid var(--green-mid);
+    padding: 14px 18px;
+    border-radius: 4px;
+    margin-top: 12px;
+  }
+
+  .story-body .key-lines p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 6px;
+    font-style: italic;
+  }
+
+  .story-body .key-lines p:last-child { margin-bottom: 0; }
+
+  .questions-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-top: 40px;
+    max-width: 760px;
+  }
+
+  .questions-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--green-mid);
+    margin-bottom: 14px;
+  }
+
+  .questions-box ol { padding-left: 18px; }
+
+  .questions-box li {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .questions-box li strong { color: white; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 8px 0 0; }
+
+  /* H3 inline style helper */
+  .h3-bi { font-size: 17px; font-weight: 700; color: var(--navy); margin: 28px 0 16px; }
+  .h3-bi .h3-th { display: none; font-size: 14px; font-weight: 500; color: var(--text-muted); margin-top: 2px; font-family: 'Sarabun', sans-serif; }
+  body.show-th .h3-bi .h3-en { display: none; }
+  body.show-th .h3-bi .h3-th { display: block; font-size: 17px; color: var(--navy); font-weight: 700; }
+  body.show-both .h3-bi .h3-th { display: block; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .content { padding: 0 24px 60px; }
+    .hero { padding: 40px 24px; }
+    .hero h1 { font-size: 28px; }
+    .gen-grid { grid-template-columns: 1fr; }
+    .region-grid { grid-template-columns: 1fr; }
+    .storyline-section { margin: 0 -24px; padding: 48px 24px; }
+    .lang-toggle { top: 8px; right: 8px; }
+  }
+
+  html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 24px; }
+</style>
+</head>
+<body>
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+  <button class="lang-btn active" onclick="setLang('en')">EN</button>
+  <button class="lang-btn" onclick="setLang('th')">ไทย</button>
+  <button class="lang-btn" onclick="setLang('both')">ทั้งคู่</button>
+</div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="tag">Syngenta Thailand</div>
+    <h1>Lighthouse Intelligence Brief<br><span style="font-size:13px;font-weight:400;font-family:'Sarabun',sans-serif;color:rgba(255,255,255,0.6);">สรุปข้อมูลเชิงกลยุทธ์</span></h1>
+    <p>Digital Transformation Lead · พ.ค. 2026</p>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-group">
+      <div class="nav-group-label">Market Intelligence · ข้อมูลตลาด</div>
+      <a class="nav-item" href="#s1"><span class="num">1</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Thailand Market &amp; Portfolio</span>
+          <span class="nav-th">ตลาดไทยและพอร์ตโฟลิโอ</span>
+        </span>
+      </a>
+      <a class="nav-item" href="#s2"><span class="num">2</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Digital Maturity &amp; Generations</span>
+          <span class="nav-th">ความพร้อมดิจิทัลและเกษตรกร</span>
+        </span>
+      </a>
+      <a class="nav-item" href="#s3"><span class="num">3</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Agricultural Landscape</span>
+          <span class="nav-th">ภาพรวมภาคเกษตร</span>
+        </span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Strategy &amp; Innovation · กลยุทธ์</div>
+      <a class="nav-item" href="#s4"><span class="num">4</span>
+        <span class="nav-item-label">
+          <span class="nav-en">DT Strategy &amp; Innovation</span>
+          <span class="nav-th">กลยุทธ์ DT และนวัตกรรม</span>
+        </span>
+      </a>
+      <a class="nav-item" href="#s5"><span class="num">5</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Driving Digital Without Apps</span>
+          <span class="nav-th">ขับเคลื่อนดิจิทัลโดยไม่ต้องมีแอป</span>
+        </span>
+      </a>
+      <a class="nav-item" href="#s6"><span class="num">6</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Retailer Tax Barrier</span>
+          <span class="nav-th">ปัญหาภาษีของร้านค้า</span>
+        </span>
+      </a>
+      <a class="nav-item" href="#s7"><span class="num">7</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Credit &amp; Pricing Problem</span>
+          <span class="nav-th">ปัญหาสินเชื่อและราคา</span>
+        </span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-group-label">Presentation · การนำเสนอ</div>
+      <a class="nav-item" href="#storyline"><span class="num">★</span>
+        <span class="nav-item-label">
+          <span class="nav-en">Offsite Storyline</span>
+          <span class="nav-th">โครงเรื่องนำเสนอ</span>
+        </span>
+      </a>
+    </div>
+  </div>
+  <div class="sidebar-footer">Confidential · Internal Use Only · ใช้ภายในเท่านั้น<br>Compiled by AI Research · 2026</div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag">🌾 Lighthouse Program · โปรแกรม Lighthouse</div>
+    <h1>
+      <span class="h1-en">Thailand: The Market<br>That Proves the <span>Model</span></span>
+      <span class="h1-th">ไทย: ตลาดที่พิสูจน์<span style="color:#6EE7A8;">โมเดล</span></span>
+    </h1>
+    <p>
+      <span class="en">A complete intelligence brief covering Thailand's agricultural market, digital maturity, grower landscape, channel dynamics, and digital transformation strategy — built for the global offsite presentation.</span>
+      <span class="th">สรุปข้อมูลเชิงกลยุทธ์ครอบคลุมตลาดเกษตรไทย ความพร้อมด้านดิจิทัล ภาพรวมเกษตรกร ช่องทางการจำหน่าย และกลยุทธ์การเปลี่ยนแปลงทางดิจิทัล — จัดทำเพื่อการนำเสนอในเวที Global Offsite</span>
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="val">20+</div><div class="lbl"><span class="en">Years of research</span><span class="th">ปีของงานวิจัย</span></div></div>
+      <div class="hero-stat"><div class="val">12+</div><div class="lbl"><span class="en">Crops covered</span><span class="th">พืชที่ครอบคลุม</span></div></div>
+      <div class="hero-stat"><div class="val">~1B</div><div class="lbl"><span class="en">THB rice target 2026</span><span class="th">บาท เป้าข้าว 2026</span></div></div>
+      <div class="hero-stat"><div class="val">94.7%</div><div class="lbl"><span class="en">Internet penetration</span><span class="th">การเข้าถึงอินเทอร์เน็ต</span></div></div>
+      <div class="hero-stat"><div class="val">400M</div><div class="lbl"><span class="en">USD CP market</span><span class="th">USD มูลค่าตลาด CP</span></div></div>
+    </div>
+  </div>
+
+  <div class="content">
+
+  <!-- ====== SECTION 1 ====== -->
+  <section id="s1" class="section">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">Thailand Market &amp; Product Portfolio</span>
+          <span class="h2-th">ตลาดไทยและพอร์ตโฟลิโอผลิตภัณฑ์</span>
+        </h2>
+        <p>
+          <span class="en">20 years of continuous research. A full-spectrum portfolio across rice, durian, vegetables, corn, sugarcane, and more.</span>
+          <span class="th">20 ปีของการวิจัยต่อเนื่อง พอร์ตโฟลิโอครบวงจรครอบคลุมข้าว ทุเรียน ผัก ข้าวโพด อ้อย และอื่นๆ</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="val">~1.05B</div><div class="lbl"><span class="en">THB FY2026 Rice<br>Net Sales Target</span><span class="th">บาท เป้าขายสุทธิ<br>ข้าว ปีงบ 2026</span></div></div>
+      <div class="stat-box"><div class="val">USD 400M+</div><div class="lbl"><span class="en">Total Thailand CP<br>Market Value (2023)</span><span class="th">มูลค่าตลาด CP<br>ไทยรวม (2566)</span></div></div>
+      <div class="stat-box"><div class="val">150 tons</div><div class="lbl"><span class="en">Simodis FY2026<br>Target</span><span class="th">เป้า Simodis<br>ปีงบ 2026</span></div></div>
+      <div class="stat-box"><div class="val">5 pillars</div><div class="lbl"><span class="en">Herbicide, Insecticide,<br>Fungicide, Seedcare, Bio</span><span class="th">สารกำจัดวัชพืช แมลง<br>โรค เมล็ด และชีวภาพ</span></div></div>
+      <div class="stat-box"><div class="val">104.6M</div><div class="lbl"><span class="en">THB Gap to Close<br>in Rice FY2026</span><span class="th">บาท ช่องว่างที่ต้องปิด<br>ในข้าว ปีงบ 2026</span></div></div>
+    </div>
+
+    <div class="prose">
+      <h3>
+        <span class="en">Why Thailand Is a Strategically Complex Market</span>
+        <span class="th" style="display:none;">ทำไมไทยถึงเป็นตลาดที่ซับซ้อนเชิงกลยุทธ์</span>
+      </h3>
+      <p>
+        <span class="en">Thailand is not simply a rice economy. It spans rice, corn, sugarcane, cassava, durian, citrus, mangoes, vegetables, and potato — each with distinct grower behavior, pest pressure, and channel dynamics. For Syngenta's digital transformation lighthouse program, Thailand offers <strong>breadth of proof</strong>: if a digital model works here, it can scale across ASEAN and beyond.</span>
+        <span class="th">ไทยไม่ใช่แค่ประเทศที่ปลูกข้าว แต่ครอบคลุมพืชหลากหลาย ทั้งข้าว ข้าวโพด อ้อย มันสำปะหลัง ทุเรียน ส้ม มะม่วง ผัก และมันฝรั่ง แต่ละชนิดมีพฤติกรรมเกษตรกร แรงกดดันจากศัตรูพืช และไดนามิกช่องทางที่แตกต่างกัน สำหรับโปรแกรม Lighthouse ของ Syngenta ไทยมอบ <strong>ความกว้างของการพิสูจน์</strong>: หากโมเดลดิจิทัลใช้ได้ที่นี่ มันสามารถขยายทั่ว ASEAN และไกลกว่านั้น</span>
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th><span class="en">Pillar</span><span class="th">เสา</span></th>
+          <th><span class="en">Key Brands</span><span class="th">แบรนด์หลัก</span></th>
+          <th><span class="en">Primary Crops</span><span class="th">พืชหลัก</span></th>
+          <th><span class="en">Strategic Status</span><span class="th">สถานะเชิงกลยุทธ์</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><strong>Weed Control · <span class="th" style="display:inline;font-size:12px;color:#6B7280;">สารกำจัดวัชพืช</span></strong></td><td>Sofit, Solito, Dual Gold, Calaris, Cadrasia</td><td>Rice, Corn, Sugarcane · ข้าว ข้าวโพด อ้อย</td><td><span class="en">Sofit = anchor brand; Cadrasia in launch</span><span class="th">Sofit = แบรนด์หลัก; Cadrasia เปิดตัวใหม่</span></td></tr>
+          <tr><td><strong>Insect Control · <span class="th" style="display:inline;font-size:12px;color:#6B7280;">สารกำจัดแมลง</span></strong></td><td>Virtako, Plenum, Simodis, Solvigo, Eforia, Karate, Curyom</td><td>Rice, Durian, Vegetables · ข้าว ทุเรียน ผัก</td><td><span class="en">Simodis = must-win 2026</span><span class="th">Simodis = ต้องชนะในปี 2026</span></td></tr>
+          <tr><td><strong>Disease Control · <span class="th" style="display:inline;font-size:12px;color:#6B7280;">สารกำจัดโรค</span></strong></td><td>Armure, Ortiva, Score, Amistar, Folio Gold, Reflect Evo</td><td>Rice, Vegetables, Fruits · ข้าว ผัก ผลไม้</td><td><span class="en">Armure = #1 brand by awareness &amp; purchase intent</span><span class="th">Armure = อันดับ 1 การรับรู้และความตั้งใจซื้อ</span></td></tr>
+          <tr><td><strong>Seedcare · <span class="th" style="display:inline;font-size:12px;color:#6B7280;">สารคลุกเมล็ด</span></strong></td><td>Fortenza Duo, Cruiser</td><td>Rice, Corn · ข้าว ข้าวโพด</td><td><span class="en">Early-season protection</span><span class="th">ป้องกันต้นฤดู</span></td></tr>
+          <tr><td><strong>Bio / Nutrition · <span class="th" style="display:inline;font-size:12px;color:#6B7280;">ชีวภาพ/โภชนาการ</span></strong></td><td>Esbion, Boosten, MC Set, MC Extra, Brazil Cambo</td><td><span class="en">All crops</span><span class="th">ทุกพืช</span></td><td><span class="en">Fast-growing; cross-crop opportunity</span><span class="th">เติบโตเร็ว; โอกาสข้ามพืช</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight">
+      <p>
+        <span class="en"><strong>2026 Must-Wins:</strong> Win in Rice (close 104.6M THB gap via Ortiva, Sofit, Plenum, Armure) + Simodis 150 tons (King of Thrips Control campaign, July launch) + "ช่วยชาวนาไทย+" digital grower campaign (paperless, LINE-registered).</span>
+        <span class="th"><strong>เป้าหมายที่ต้องชนะในปี 2026:</strong> ชนะในข้าว (ปิดช่องว่าง 104.6 ล้านบาท ผ่าน Ortiva, Sofit, Plenum, Armure) + Simodis 150 ตัน (แคมเปญ King of Thrips Control เปิดตัวกรกฎาคม) + แคมเปญดิจิทัล "ช่วยชาวนาไทย+" (ไม่ใช้กระดาษ, ลงทะเบียนผ่าน LINE)</span>
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4><span class="en">Rice — The Commercial Foundation</span><span class="th">ข้าว — รากฐานเชิงพาณิชย์</span></h4>
+        <ul>
+          <li><span class="en">FY2026 net target: ~1.05B THB</span><span class="th">เป้าสุทธิปีงบ 2026: ~1.05 พันล้านบาท</span></li>
+          <li><span class="en">Key products: Sofit (herb), Armure (fung), Plenum/Virtako (ins)</span><span class="th">ผลิตภัณฑ์หลัก: Sofit (วัชพืช), Armure (โรค), Plenum/Virtako (แมลง)</span></li>
+          <li><span class="en">Armure = highest brand awareness + purchase intent in fungicide</span><span class="th">Armure = การรับรู้แบรนด์และความตั้งใจซื้อสูงสุดในกลุ่มสารกำจัดโรค</span></li>
+          <li><span class="en">Growers apply ~3 insecticide sprays/season; 75% via drone</span><span class="th">เกษตรกรพ่นสารกำจัดแมลง ~3 ครั้ง/ฤดู; 75% ผ่านโดรน</span></li>
+          <li><span class="en">Challenge: generics rising; MNC share under pressure</span><span class="th">ความท้าทาย: ยาสามัญเพิ่มขึ้น; ส่วนแบ่ง MNC อยู่ภายใต้แรงกดดัน</span></li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4><span class="en">Durian — The Growth Engine</span><span class="th">ทุเรียน — เครื่องยนต์การเติบโต</span></h4>
+        <ul>
+          <li><span class="en">Production: 1.57M tons (2025), up 10.8% year-on-year</span><span class="th">ผลผลิต: 1.57 ล้านตัน (2568) เพิ่มขึ้น 10.8% ปีต่อปี</span></li>
+          <li><span class="en">Key products: Simodis, Solvigo, Folio Gold, Phytab</span><span class="th">ผลิตภัณฑ์หลัก: Simodis, Solvigo, Folio Gold, Phytab</span></li>
+          <li><span class="en">Growers invest 5,000-10,000 THB/rai/season on inputs</span><span class="th">เกษตรกรลงทุน 5,000-10,000 บาท/ไร่/ฤดูกาลในปัจจัยการผลิต</span></li>
+          <li><span class="en">Export-driven quality pressure — every damaged batch hurts</span><span class="th">แรงกดดันด้านคุณภาพจากการส่งออก — ทุกล็อตที่เสียหายสร้างผลกระทบ</span></li>
+          <li><span class="en">362 Simodis demo plots completed H1 (exceeded target)</span><span class="th">เสร็จสิ้น 362 แปลงสาธิต Simodis ครึ่งปีแรก (เกินเป้า)</span></li>
+        </ul>
+      </div>
+      <div class="card navy">
+        <h4><span class="en">Vegetables &amp; High-Value Crops</span><span class="th">ผักและพืชมูลค่าสูง</span></h4>
+        <ul>
+          <li><span class="en">Crops: Chili, Tomato, Brassica, Onion, Shallot, Potato, Mango</span><span class="th">พืช: พริก มะเขือเทศ กะหล่ำ หัวหอม หอมแดง มันฝรั่ง มะม่วง</span></li>
+          <li><span class="en">Multiple spray cycles per season; higher input intensity</span><span class="th">หลายรอบพ่นต่อฤดู; ความเข้มข้นในการใช้ปัจจัยการผลิตสูงกว่า</span></li>
+          <li><span class="en">Simodis "King of Thrips" also targets chili and tomato</span><span class="th">Simodis "King of Thrips" ยังเจาะกลุ่มพริกและมะเขือเทศ</span></li>
+          <li><span class="en">Bio products (Esbion, MC Set) gaining traction for quality</span><span class="th">ผลิตภัณฑ์ชีวภาพ (Esbion, MC Set) ได้รับความนิยมเพื่อคุณภาพ</span></li>
+          <li><span class="en">Younger, entrepreneurial growers dominate this segment</span><span class="th">เกษตรกรรุ่นใหม่ที่มีแนวคิดผู้ประกอบการครองเซกเมนต์นี้</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 2 ====== -->
+  <section id="s2" class="section">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">Digital Maturity &amp; Grower Generations</span>
+          <span class="h2-th">ความพร้อมดิจิทัลและรุ่นของเกษตรกร</span>
+        </h2>
+        <p>
+          <span class="en">Thailand is more digitally mature than most global teams expect. The challenge is not connectivity — it is behavior and trust.</span>
+          <span class="th">ไทยมีความพร้อมด้านดิจิทัลมากกว่าที่ทีมงานระดับโลกส่วนใหญ่คาดไว้ ความท้าทายไม่ใช่การเชื่อมต่อ แต่คือพฤติกรรมและความไว้วางใจ</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box"><div class="val">94.7%</div><div class="lbl"><span class="en">Internet penetration<br>(67.8M users)</span><span class="th">การเข้าถึงอินเทอร์เน็ต<br>(67.8 ล้านคน)</span></div></div>
+      <div class="stat-box"><div class="val">139%</div><div class="lbl"><span class="en">Mobile connection<br>rate (99.5M SIMs)</span><span class="th">อัตราการเชื่อมต่อมือถือ<br>(99.5 ล้าน SIM)</span></div></div>
+      <div class="stat-box"><div class="val">85.4%</div><div class="lbl"><span class="en">LINE monthly<br>active users</span><span class="th">ผู้ใช้งาน LINE<br>รายเดือน</span></div></div>
+      <div class="stat-box"><div class="val">71.9%</div><div class="lbl"><span class="en">Facebook<br>users</span><span class="th">ผู้ใช้งาน<br>Facebook</span></div></div>
+      <div class="stat-box"><div class="val">100%</div><div class="lbl"><span class="en">Mobile connections<br>are broadband</span><span class="th">การเชื่อมต่อมือถือ<br>ทั้งหมดเป็น Broadband</span></div></div>
+    </div>
+
+    <div class="highlight navy">
+      <p>
+        <span class="en"><strong>Key insight:</strong> The rural-urban digital gap is closing fast. 45.3% of Thais are rural, yet LINE and Facebook reach even older rural residents. The barrier to digital engagement is not connectivity — it is trust, relevance, and habit.</span>
+        <span class="th"><strong>ข้อมูลเชิงลึกสำคัญ:</strong> ช่องว่างดิจิทัลระหว่างเมืองและชนบทกำลังแคบลงเร็ว 45.3% ของคนไทยอาศัยในชนบท แต่ LINE และ Facebook เข้าถึงแม้แต่ผู้สูงอายุในชนบท อุปสรรคในการมีส่วนร่วมดิจิทัลไม่ใช่การเชื่อมต่อ แต่คือความไว้วางใจ ความเกี่ยวข้อง และนิสัย</span>
+      </p>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin-bottom:16px;">
+      <span class="en">Three Grower Generations Farming Simultaneously</span>
+      <span class="th" style="display:none;">สามรุ่นของเกษตรกรที่ทำเกษตรพร้อมกัน</span>
+    </h3>
+
+    <div class="gen-grid">
+      <div class="gen-card senior">
+        <span class="gen-tag"><span class="en">Senior Farmer</span><span class="th">เกษตรกรอาวุโส</span></span>
+        <h4><span class="en">The Landowner</span><span class="th">เจ้าของที่ดิน</span></h4>
+        <div class="age"><span class="en">60+ years · Born before 1966 · 25% of farm operators</span><span class="th">อายุ 60+ ปี · เกิดก่อน พ.ศ.2509 · 25% ของผู้ดำเนินกิจการฟาร์ม</span></div>
+        <p>
+          <span class="en"><strong>Digital behavior:</strong> Uses LINE for family messaging and voice notes. Trust is relationship-driven. The retailer and field rep are the decision-makers.</span>
+          <span class="th"><strong>พฤติกรรมดิจิทัล:</strong> ใช้ LINE สำหรับส่งข้อความและบันทึกเสียงในครอบครัว ความไว้วางใจขับเคลื่อนด้วยความสัมพันธ์ ร้านค้าและตัวแทนภาคสนามคือผู้ตัดสินใจ</span>
+        </p>
+        <p>
+          <span class="en"><strong>What works:</strong> Trusted brands (Armure, Sofit), retailer endorsement, field demonstrations. Digital amplifies trust — it does not replace it.</span>
+          <span class="th"><strong>สิ่งที่ได้ผล:</strong> แบรนด์ที่ไว้วางใจ (Armure, Sofit) การรับรองจากร้านค้า การสาธิตในแปลง ดิจิทัลขยายความไว้วางใจ ไม่ใช่แทนที่</span>
+        </p>
+        <p>
+          <span class="en"><strong>Risk:</strong> Farm operators over 65 grew from 17% (2016) to 25% (2022). This segment is the current volume base but is aging out.</span>
+          <span class="th"><strong>ความเสี่ยง:</strong> ผู้ดำเนินกิจการฟาร์มอายุเกิน 65 ปีเพิ่มจาก 17% (2559) เป็น 25% (2565) เซกเมนต์นี้คือฐานปริมาณปัจจุบัน แต่กำลังแก่ตัวลง</span>
+        </p>
+      </div>
+      <div class="gen-card middle">
+        <span class="gen-tag"><span class="en">Active Middle Farmer</span><span class="th">เกษตรกรวัยกลาง</span></span>
+        <h4><span class="en">The Commercial Core</span><span class="th">หัวใจเชิงพาณิชย์</span></h4>
+        <div class="age"><span class="en">40-60 years · Millennials &amp; late Gen X · Largest segment</span><span class="th">อายุ 40-60 ปี · Millennials &amp; Gen X ปลาย · เซกเมนต์ใหญ่ที่สุด</span></div>
+        <p>
+          <span class="en"><strong>Digital behavior:</strong> Uses LINE OA, Facebook groups, YouTube for crop advice. Price-compares online before visiting the shop. Already uses drone services as a hired input.</span>
+          <span class="th"><strong>พฤติกรรมดิจิทัล:</strong> ใช้ LINE OA กลุ่ม Facebook YouTube ขอคำปรึกษาเรื่องพืช เปรียบเทียบราคาออนไลน์ก่อนไปร้าน ใช้บริการโดรนเป็นปัจจัยการผลิตที่จ้างแล้ว</span>
+        </p>
+        <p>
+          <span class="en"><strong>What works:</strong> This is the DT sweet spot. Reachable, persuadable, digitally active. The "ช่วยชาวนาไทย+" coupon campaign targets exactly this group.</span>
+          <span class="th"><strong>สิ่งที่ได้ผล:</strong> นี่คือจุดหวานของ DT เข้าถึงได้ โน้มน้าวได้ ดิจิทัลแอคทีฟ แคมเปญคูปอง "ช่วยชาวนาไทย+" มุ่งเป้ากลุ่มนี้โดยเฉพาะ</span>
+        </p>
+        <p>
+          <span class="en"><strong>Opportunity:</strong> 75% of insecticide applications in rice are now by drone — this group drove that shift.</span>
+          <span class="th"><strong>โอกาส:</strong> 75% ของการพ่นสารกำจัดแมลงในข้าวทำผ่านโดรนแล้ว — กลุ่มนี้เป็นผู้นำการเปลี่ยนแปลงนั้น</span>
+        </p>
+      </div>
+      <div class="gen-card young">
+        <span class="gen-tag"><span class="en">Young Smart Farmer</span><span class="th">เกษตรกรรุ่นใหม่ Smart</span></span>
+        <h4><span class="en">The Agri-Entrepreneur</span><span class="th">ผู้ประกอบการเกษตร</span></h4>
+        <div class="age"><span class="en">Under 40 · Gen Z &amp; younger Millennials · Minority but influential</span><span class="th">อายุต่ำกว่า 40 · Gen Z &amp; Millennials รุ่นใหม่ · น้อยแต่มีอิทธิพล</span></div>
+        <p>
+          <span class="en"><strong>Digital behavior:</strong> TikTok, YouTube, Instagram, LINE native. Researches agri inputs online, reads trial data, compares products. 43.4% of Gen Z males are heavy AI app users.</span>
+          <span class="th"><strong>พฤติกรรมดิจิทัล:</strong> TikTok YouTube Instagram LINE โดยธรรมชาติ ค้นคว้าปัจจัยการผลิตออนไลน์ อ่านข้อมูลการทดลอง เปรียบเทียบผลิตภัณฑ์ 43.4% ของ Gen Z ชายเป็นผู้ใช้หนักของแอป AI</span>
+        </p>
+        <p>
+          <span class="en"><strong>What works:</strong> Partner and co-creator model. They build drone service networks, run demo farm content, and influence older farmers. Simodis Hero VDO = 94% like rate with this cohort.</span>
+          <span class="th"><strong>สิ่งที่ได้ผล:</strong> โมเดลพันธมิตรและผู้สร้างร่วม พวกเขาสร้างเครือข่ายบริการโดรน สร้างคอนเทนต์แปลงสาธิต และมีอิทธิพลต่อเกษตรกรรุ่นเก่า Simodis Hero VDO = like rate 94% ในกลุ่มนี้</span>
+        </p>
+        <p>
+          <span class="en"><strong>The government bet:</strong> Young Smart Farmer program launched in 2014 to reverse rural outmigration and bring educated youth back to agriculture.</span>
+          <span class="th"><strong>ความเดิมพันของรัฐบาล:</strong> โครงการ Young Smart Farmer เปิดตัวปี 2557 เพื่อย้อนกลับการอพยพออกจากชนบทและดึงเยาวชนที่มีการศึกษากลับมาเกษตรกรรม</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight red">
+      <p>
+        <span class="en"><strong>Structural warning:</strong> The average Thai rice farmer is now <strong>55-60 years old</strong>. Farmers under 45 declined from 29% (2016) to just 18% (2022). The current 40-60 cohort is the <strong>last generation that will hybrid-adopt</strong>. The window for establishing digital relationship primacy is narrowing.</span>
+        <span class="th"><strong>คำเตือนเชิงโครงสร้าง:</strong> เกษตรกรข้าวไทยโดยเฉลี่ยอายุ <strong>55-60 ปี</strong> แล้ว เกษตรกรอายุต่ำกว่า 45 ลดลงจาก 29% (2559) เหลือแค่ 18% (2565) กลุ่ม 40-60 ในปัจจุบันคือ <strong>รุ่นสุดท้ายที่จะรับเทคโนโลยีแบบผสมผสาน</strong> หน้าต่างในการสร้างความเป็นเจ้าของความสัมพันธ์ดิจิทัลกำลังแคบลง</span>
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th><span class="en">Digital Dimension</span><span class="th">มิติดิจิทัล</span></th>
+          <th><span class="en">Reality</span><span class="th">ความเป็นจริง</span></th>
+          <th><span class="en">Lighthouse Implication</span><span class="th">ความหมายสำหรับ Lighthouse</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><span class="en">Internet access</span><span class="th">การเข้าถึงอินเทอร์เน็ต</span></td><td>94.7%, mobile-first</td><td><span class="en">Digital reach exists; barrier is behavior, not connectivity</span><span class="th">การเข้าถึงดิจิทัลมีอยู่แล้ว; อุปสรรคคือพฤติกรรม ไม่ใช่การเชื่อมต่อ</span></td></tr>
+          <tr><td><span class="en">Dominant platform</span><span class="th">แพลตฟอร์มหลัก</span></td><td>LINE + Facebook</td><td><span class="en">Campaign and CRM must live here first — app second</span><span class="th">แคมเปญและ CRM ต้องอยู่ที่นี่ก่อน — แอปเป็นลำดับรอง</span></td></tr>
+          <tr><td><span class="en">Farmer age</span><span class="th">อายุเกษตรกร</span></td><td><span class="en">Average 55-60, declining young entrants</span><span class="th">เฉลี่ย 55-60, คนรุ่นใหม่น้อยลง</span></td><td><span class="en">Time-sensitive window: act before this cohort ages out</span><span class="th">หน้าต่างเวลาจำกัด: ดำเนินการก่อนกลุ่มนี้จะแก่ตัว</span></td></tr>
+          <tr><td><span class="en">Drone adoption</span><span class="th">การใช้โดรน</span></td><td><span class="en">75% of rice insecticide sprays by drone</span><span class="th">75% ของการพ่นสารกำจัดแมลงในข้าวผ่านโดรน</span></td><td><span class="en">Formulation and channel strategy must be drone-compatible</span><span class="th">สูตรและกลยุทธ์ช่องทางต้องรองรับโดรน</span></td></tr>
+          <tr><td><span class="en">Young smart farmers</span><span class="th">Young Smart Farmers</span></td><td><span class="en">Government-backed, entrepreneurially motivated</span><span class="th">รัฐบาลสนับสนุน มีแรงจูงใจผู้ประกอบการ</span></td><td><span class="en">Seed next-gen with digital engagement now</span><span class="th">เพาะรุ่นถัดไปด้วยการมีส่วนร่วมดิจิทัลตั้งแต่ตอนนี้</span></td></tr>
+          <tr><td><span class="en">AgriTech investment</span><span class="th">การลงทุน AgriTech</span></td><td><span class="en">Government-supported, DEPA-funded</span><span class="th">รัฐบาลสนับสนุน DEPA ให้ทุน</span></td><td><span class="en">Co-ride the policy wave rather than build against it</span><span class="th">ขี่คลื่นนโยบายไปด้วยกัน ไม่ใช่สวนกระแส</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 3 ====== -->
+  <section id="s3" class="section">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">Agricultural Landscape</span>
+          <span class="h2-th">ภาพรวมภาคเกษตร</span>
+        </h2>
+        <p>
+          <span class="en">Crop area trends, four distinct regional worlds, seasonality, rotation, soil, and the grower-retailer ecosystem.</span>
+          <span class="th">แนวโน้มพื้นที่เพาะปลูก สี่โลกภูมิภาคที่แตกต่าง ฤดูกาล การหมุนเวียนพืช ดิน และระบบนิเวศเกษตรกร-ร้านค้า</span>
+        </p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:0 0 16px;">
+      <span class="en">Crop Area Trends: Growing vs. Declining</span>
+      <span class="th" style="display:none;">แนวโน้มพื้นที่พืช: กำลังเติบโต vs กำลังลดลง</span>
+    </h3>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th><span class="en">Crop</span><span class="th">พืช</span></th>
+          <th><span class="en">Direction</span><span class="th">ทิศทาง</span></th>
+          <th><span class="en">Area / Volume</span><span class="th">พื้นที่ / ปริมาณ</span></th>
+          <th><span class="en">Primary Driver</span><span class="th">ปัจจัยหลัก</span></th>
+          <th><span class="en">Syngenta Relevance</span><span class="th">ความเกี่ยวข้องกับ Syngenta</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><strong>Durian · ทุเรียน</strong></td><td class="up">▲ <span class="en">Growing fast</span><span class="th">เติบโตเร็ว</span></td><td>1.65M rai; +10.8%</td><td><span class="en">China export premium, intensification</span><span class="th">ราคาพรีเมียมส่งออกจีน</span></td><td>Simodis, Solvigo, Folio Gold</td></tr>
+          <tr><td><strong>Oil Palm · ปาล์มน้ำมัน</strong></td><td class="up">▲ <span class="en">Growing</span><span class="th">เติบโต</span></td><td>6.4M rai</td><td><span class="en">Replaces rubber in South</span><span class="th">แทนที่ยางพาราในภาคใต้</span></td><td>Gramoxone, herbicides</td></tr>
+          <tr><td><strong>Feed Corn · ข้าวโพดเลี้ยงสัตว์</strong></td><td class="up">▲ <span class="en">Modest growth</span><span class="th">เติบโตพอประมาณ</span></td><td>5.4M MT 2025</td><td><span class="en">Feed demand, off-season expansion</span><span class="th">ความต้องการอาหารสัตว์</span></td><td>Dual Gold, Calaris, Virtako, Proclaim</td></tr>
+          <tr><td><strong>Horticulture · พืชสวน</strong></td><td class="up">▲ <span class="en">Expanding</span><span class="th">ขยายตัว</span></td><td><span class="en">Multiple crops growing</span><span class="th">หลายพืชกำลังเติบโต</span></td><td><span class="en">Diversification from commodity crops</span><span class="th">กระจายความเสี่ยงจากพืชอุตสาหกรรม</span></td><td><span class="en">Full portfolio</span><span class="th">พอร์ตโฟลิโอครบ</span></td></tr>
+          <tr><td><strong>Rice · ข้าว</strong></td><td class="flat">→ <span class="en">Slow decline</span><span class="th">ลดลงช้า</span></td><td>~10M ha</td><td><span class="en">Labor shortage, low margins</span><span class="th">ขาดแคลนแรงงาน กำไรต่ำ</span></td><td><span class="en">Foundation revenue pillar</span><span class="th">เสาหลักรายได้</span></td></tr>
+          <tr><td><strong>Cassava · มันสำปะหลัง</strong></td><td class="down">▼ <span class="en">Flat to declining</span><span class="th">คงที่ถึงลดลง</span></td><td><span class="en">Weak export demand</span><span class="th">ความต้องการส่งออกอ่อนแอ</span></td><td><span class="en">China alcohol demand softened</span><span class="th">ความต้องการแอลกอฮอล์จีนลดลง</span></td><td>Dual Gold, Karate</td></tr>
+          <tr><td><strong>Rubber · ยางพารา</strong></td><td class="down">▼ <span class="en">Declining</span><span class="th">ลดลง</span></td><td>Net -53,000 ha (2012-2022)</td><td><span class="en">Converting to oil palm</span><span class="th">เปลี่ยนเป็นปาล์มน้ำมัน</span></td><td>Gramoxone</td></tr>
+          <tr><td><strong>Sugarcane · อ้อย</strong></td><td class="down">▼ <span class="en">Long-term decline</span><span class="th">ลดลงระยะยาว</span></td><td><span class="en">1-2% area reduction projected</span><span class="th">คาดลดพื้นที่ 1-2%</span></td><td><span class="en">Water stress, soil degradation</span><span class="th">ความเครียดน้ำ ดินเสื่อมโทรม</span></td><td>Krismat, Atrac, Dual Gold</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:28px 0 16px;">
+      <span class="en">Four Distinct Regional Worlds</span>
+      <span class="th" style="display:none;">สี่โลกภูมิภาคที่แตกต่างกัน</span>
+    </h3>
+
+    <div class="region-grid">
+      <div class="region-card">
+        <div class="region-header">
+          <div class="region-icon" style="background:#E8F5EE;">🌾</div>
+          <div><h4><span class="en">Central Plains</span><span class="th">ภาคกลาง</span></h4><div class="sub"><span class="en">Commercial Core · Fertile Lowlands</span><span class="th">แกนหลักเชิงพาณิชย์ · ที่ราบลุ่มอุดมสมบูรณ์</span></div></div>
+        </div>
+        <p><strong><span class="en">Soil:</span><span class="th">ดิน:</span></strong> <span class="en">Rich alluvial clay, high fertility, high water retention.</span><span class="th">ดินตะกอนเหนียวอุดมสมบูรณ์ ดูดซับน้ำดี</span></p>
+        <p><strong><span class="en">Farming:</span><span class="th">การเกษตร:</span></strong> <span class="en">2-3 rice crops/year in irrigated areas. Most commercial orientation. Largest farms.</span><span class="th">ข้าว 2-3 รอบ/ปีในพื้นที่ชลประทาน เชิงพาณิชย์มากที่สุด ฟาร์มใหญ่ที่สุด</span></p>
+        <p><strong><span class="en">Grower profile:</span><span class="th">โปรไฟล์เกษตรกร:</span></strong> <span class="en">Calculates ROI. Pays premium for performance. Armure brand loyalty is strongest here.</span><span class="th">คำนวณ ROI จ่ายราคาพรีเมียมเพื่อประสิทธิภาพ ความภักดีต่อแบรนด์ Armure แข็งแกร่งที่สุดที่นี่</span></p>
+        <div class="tag-list">
+          <span class="tag crop">Rice (2-3 crops) · ข้าว</span>
+          <span class="tag crop">Sugarcane · อ้อย</span>
+          <span class="tag soil">Alluvial clay · ดินตะกอน</span>
+        </div>
+      </div>
+      <div class="region-card">
+        <div class="region-header">
+          <div class="region-icon" style="background:#FEF3C7;">🌿</div>
+          <div><h4><span class="en">Northeast (Isan)</span><span class="th">ภาคอีสาน</span></h4><div class="sub"><span class="en">Volume Base · Hardest to Serve</span><span class="th">ฐานปริมาณ · ยากที่สุดในการให้บริการ</span></div></div>
+        </div>
+        <p><strong><span class="en">Soil:</span><span class="th">ดิน:</span></strong> <span class="en">Sandy, infertile, low water-holding capacity. Yields 20-40% below Central Plains.</span><span class="th">ทราย ไม่อุดมสมบูรณ์ กักเก็บน้ำต่ำ ผลผลิตต่ำกว่าภาคกลาง 20-40%</span></p>
+        <p><strong><span class="en">Farming:</span><span class="th">การเกษตร:</span></strong> <span class="en">Rainfed rice, one crop/year (May-Oct). Heavy subsistence orientation. Extreme price sensitivity.</span><span class="th">ข้าวน้ำฝน หนึ่งรอบ/ปี (พ.ค.-ต.ค.) เน้นยังชีพ ไวต่อราคามาก</span></p>
+        <p><strong><span class="en">Grower profile:</span><span class="th">โปรไฟล์เกษตรกร:</span></strong> <span class="en">Buys on retailer recommendation within tight price range. Generic herbicides dominate.</span><span class="th">ซื้อตามคำแนะนำของร้านค้าในช่วงราคาแคบ ยาสามัญวัชพืชครองตลาด</span></p>
+        <div class="tag-list">
+          <span class="tag crop">Glutinous Rice · ข้าวเหนียว</span>
+          <span class="tag crop">Cassava · มันสำปะหลัง</span>
+          <span class="tag challenge">Generic pressure · แรงกดดันยาสามัญ</span>
+        </div>
+      </div>
+      <div class="region-card">
+        <div class="region-header">
+          <div class="region-icon" style="background:#EEF2FF;">🏔️</div>
+          <div><h4><span class="en">North</span><span class="th">ภาคเหนือ</span></h4><div class="sub"><span class="en">Diversified · High-Value Potential</span><span class="th">หลากหลาย · ศักยภาพมูลค่าสูง</span></div></div>
+        </div>
+        <p><strong><span class="en">Farming:</span><span class="th">การเกษตร:</span></strong> <span class="en">Most diversified region. Rice + longan, lychee, garlic, coffee, strawberries, vegetables. Young Smart Farmers overrepresented here.</span><span class="th">ภูมิภาคที่หลากหลายที่สุด ข้าว+ลำไย ลิ้นจี่ กระเทียม กาแฟ สตรอว์เบอร์รี ผัก Young Smart Farmers เยอะที่สุดที่นี่</span></p>
+        <p><strong><span class="en">Grower profile:</span><span class="th">โปรไฟล์เกษตรกร:</span></strong> <span class="en">More diversified = more responsive to solutions. Ortiva strong in longan disease.</span><span class="th">หลากหลายมากขึ้น = ตอบสนองต่อโซลูชันมากขึ้น Ortiva แข็งแกร่งในโรคลำไย</span></p>
+        <div class="tag-list">
+          <span class="tag crop">Jasmine Rice · ข้าวหอมมะลิ</span>
+          <span class="tag crop">Longan / Lychee · ลำไย/ลิ้นจี่</span>
+          <span class="tag soil">Alluvial clay loam</span>
+        </div>
+      </div>
+      <div class="region-card">
+        <div class="region-header">
+          <div class="region-icon" style="background:#FEE2E2;">🌴</div>
+          <div><h4><span class="en">South</span><span class="th">ภาคใต้</span></h4><div class="sub"><span class="en">Perennial Crops · Premium Fruits</span><span class="th">พืชยืนต้น · ผลไม้พรีเมียม</span></div></div>
+        </div>
+        <p><strong><span class="en">Farming:</span><span class="th">การเกษตร:</span></strong> <span class="en">Perennial-oriented. Long investment cycles (rubber 7 yrs, oil palm 3-4 yrs, durian 5-7 yrs).</span><span class="th">เน้นพืชยืนต้น รอบการลงทุนยาว (ยางพารา 7 ปี ปาล์ม 3-4 ปี ทุเรียน 5-7 ปี)</span></p>
+        <p><strong><span class="en">Grower profile:</span><span class="th">โปรไฟล์เกษตรกร:</span></strong> <span class="en">Invests heavily in durian due to export value. Fungicide and insecticide demand intensifying.</span><span class="th">ลงทุนหนักในทุเรียนเพราะมูลค่าส่งออก ความต้องการสารกำจัดโรคและแมลงเข้มข้นขึ้น</span></p>
+        <div class="tag-list">
+          <span class="tag crop">Durian · ทุเรียน</span>
+          <span class="tag crop">Rubber / Oil Palm · ยาง/ปาล์ม</span>
+          <span class="tag challenge">Price sensitive · ไวต่อราคา</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4><span class="en">Grower Channel Structure</span><span class="th">โครงสร้างช่องทางเกษตรกร</span></h4>
+        <ul>
+          <li><strong><span class="en">Tier 1 — Distributor (DL):</span><span class="th">ระดับ 1 — ผู้จัดจำหน่าย (DL):</span></strong> <span class="en">Buys from Syngenta in bulk. Financial and commercial relationship. Rebates drive loading behavior.</span><span class="th">ซื้อจาก Syngenta เป็นจำนวนมาก ความสัมพันธ์ทางการเงินและเชิงพาณิชย์ ส่วนลดขับเคลื่อนพฤติกรรมการสต็อก</span></li>
+          <li><strong><span class="en">Tier 2 — Retailer (RET):</span><span class="th">ระดับ 2 — ร้านค้า (RET):</span></strong> <span class="en">The most critical link. Grower's trusted advisor, credit provider, recommendation engine. 15-30 brands in stock.</span><span class="th">ลิงค์ที่สำคัญที่สุด ที่ปรึกษาที่ไว้วางใจของเกษตรกร ผู้ให้สินเชื่อ เครื่องยนต์คำแนะนำ มี 15-30 แบรนด์ในสต็อก</span></li>
+          <li><strong><span class="en">Tier 3 — Grower:</span><span class="th">ระดับ 3 — เกษตรกร:</span></strong> <span class="en">Buys on seasonal credit from retailer. Pays after harvest. Retailer controls price, product choice, and timing.</span><span class="th">ซื้อด้วยสินเชื่อตามฤดูกาลจากร้านค้า จ่ายหลังเก็บเกี่ยว ร้านค้าควบคุมราคา ตัวเลือกผลิตภัณฑ์ และเวลา</span></li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4><span class="en">Four Grower Archetypes</span><span class="th">สี่ต้นแบบของเกษตรกร</span></h4>
+        <ul>
+          <li><strong><span class="en">Commercial Achiever (30+ rai):</span><span class="th">ผู้ประสบความสำเร็จเชิงพาณิชย์ (30+ ไร่):</span></strong> <span class="en">ROI-driven, Central Plains. Pays premium.</span><span class="th">ขับเคลื่อนด้วย ROI ภาคกลาง จ่ายราคาพรีเมียม</span></li>
+          <li><strong><span class="en">Pragmatic Middle (10-25 rai):</span><span class="th">กลุ่มกลางเชิงปฏิบัติ (10-25 ไร่):</span></strong> <span class="en">Largest segment. Buys on retailer recommendation.</span><span class="th">เซกเมนต์ใหญ่ที่สุด ซื้อตามคำแนะนำร้านค้า</span></li>
+          <li><strong><span class="en">Price-Driven Subsistence (3-10 rai):</span><span class="th">ยังชีพตามราคา (3-10 ไร่):</span></strong> <span class="en">Isan concentrated. Generics dominant.</span><span class="th">กระจุกตัวในอีสาน ยาสามัญครองตลาด</span></li>
+          <li><strong><span class="en">Agri-Entrepreneur (variable):</span><span class="th">ผู้ประกอบการเกษตร (ขนาดหลากหลาย):</span></strong> <span class="en">Durian/veg/fruit. Young, digital-native. Early Simodis adopter.</span><span class="th">ทุเรียน/ผัก/ผลไม้ รุ่นใหม่ ดิจิทัลโดยธรรมชาติ ผู้รับ Simodis กลุ่มแรก</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 4 ====== -->
+  <section id="s4" class="section">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">Digital Transformation Strategy &amp; Innovation</span>
+          <span class="h2-th">กลยุทธ์การเปลี่ยนแปลงดิจิทัลและนวัตกรรม</span>
+        </h2>
+        <p>
+          <span class="en">What the competitive landscape demands, what the ecosystem offers, and five innovation dimensions for the lighthouse.</span>
+          <span class="th">สิ่งที่ภูมิทัศน์การแข่งขันต้องการ สิ่งที่ระบบนิเวศมอบให้ และห้ามิตินวัตกรรมสำหรับ Lighthouse</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight navy">
+      <p>
+        <span class="en"><strong>The competitive reality:</strong> Every major MNC — Bayer (FieldView, 250M+ acres), BASF (xarvio), Corteva, FMC (Arc) — has built or is building a digital advisory layer on top of chemistry. The race is no longer about product alone. <strong>Whoever the grower turns to for a spray recommendation owns the commercial moment.</strong></span>
+        <span class="th"><strong>ความเป็นจริงเชิงแข่งขัน:</strong> ทุก MNC รายใหญ่ — Bayer (FieldView, 250M+ เอเคอร์) BASF (xarvio) Corteva FMC (Arc) — ได้สร้างหรือกำลังสร้างชั้นให้คำปรึกษาดิจิทัลบนผลิตภัณฑ์เคมี การแข่งขันไม่ได้อยู่ที่ผลิตภัณฑ์เพียงอย่างเดียวอีกต่อไป <strong>ใครก็ตามที่เกษตรกรหันไปหาเพื่อคำแนะนำการพ่นคือเจ้าของช่วงเวลาเชิงพาณิชย์</strong></span>
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4>Cropwise Platform</h4>
+        <ul>
+          <li><span class="en">Covers 70M+ hectares in 30+ countries</span><span class="th">ครอบคลุม 70M+ เฮกตาร์ใน 30+ ประเทศ</span></li>
+          <li><span class="en">GenAI added 2024 — up to 5% yield improvement</span><span class="th">เพิ่ม GenAI ปี 2567 — ปรับปรุงผลผลิตได้ถึง 5%</span></li>
+          <li><span class="en">Opened to third-party developers Nov 2025</span><span class="th">เปิดให้นักพัฒนาบุคคลที่สาม พ.ย. 2568</span></li>
+          <li><span class="en">Now an open ecosystem, not just a Syngenta tool</span><span class="th">ตอนนี้เป็นระบบนิเวศเปิด ไม่ใช่แค่เครื่องมือของ Syngenta</span></li>
+        </ul>
+      </div>
+      <div class="card gold">
+        <h4><span class="en">Thailand Gap to Fill</span><span class="th">ช่องว่างของไทยที่ต้องเติม</span></h4>
+        <ul>
+          <li><span class="en">Is Cropwise adapted for LINE delivery in Thai?</span><span class="th">Cropwise ปรับใช้สำหรับการส่งผ่าน LINE ในภาษาไทยหรือยัง?</span></li>
+          <li><span class="en">Does it have rice, durian, corn crop models for TH?</span><span class="th">มีโมเดลพืชข้าว ทุเรียน ข้าวโพดสำหรับไทยหรือยัง?</span></li>
+          <li><span class="en">Is it sized for 3-10 rai smallholder farms?</span><span class="th">ปรับขนาดสำหรับฟาร์มรายย่อย 3-10 ไร่หรือยัง?</span></li>
+          <li><span class="en">If not — Thailand lighthouse fills this gap</span><span class="th">ถ้ายัง — Lighthouse ไทยจะเติมช่องว่างนี้</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:24px 0 16px;">
+      <span class="en">Five Digital Innovation Dimensions</span>
+      <span class="th" style="display:none;">ห้ามิตินวัตกรรมดิจิทัล</span>
+    </h3>
+
+    <div class="innov-grid">
+      <div class="innov-card">
+        <div class="innov-num">1</div>
+        <h4><span class="en">Data Strategy</span><span class="th">กลยุทธ์ข้อมูล</span></h4>
+        <p><span class="en">Today Syngenta has coupon redemption data and event attendance. Needed: geo-referenced farm-level spray and outcome data. Partner with Ricult or drone operators to close the loop from recommendation to result.</span><span class="th">วันนี้ Syngenta มีข้อมูลการแลกคูปองและการเข้าร่วมอีเวนต์ สิ่งที่ต้องการ: ข้อมูลการพ่นและผลลัพธ์ระดับฟาร์มพร้อมพิกัด ร่วมมือกับ Ricult หรือผู้ให้บริการโดรนเพื่อปิดวงจรจากคำแนะนำถึงผลลัพธ์</span></p>
+      </div>
+      <div class="innov-card">
+        <div class="innov-num">2</div>
+        <h4><span class="en">Platform Strategy</span><span class="th">กลยุทธ์แพลตฟอร์ม</span></h4>
+        <p><span class="en">Build inside LINE, not beside it. A Cropwise LINE OA integration delivers spray recommendations, coupons, and demo invitations through the app growers already have. No new download.</span><span class="th">สร้างภายใน LINE ไม่ใช่ข้างๆ การผสาน Cropwise กับ LINE OA ส่งคำแนะนำการพ่น คูปอง และคำเชิญสาธิตผ่านแอปที่เกษตรกรมีอยู่แล้ว ไม่ต้องดาวน์โหลดใหม่</span></p>
+      </div>
+      <div class="innov-card">
+        <div class="innov-num">3</div>
+        <h4><span class="en">Channel Innovation</span><span class="th">นวัตกรรมช่องทาง</span></h4>
+        <p><span class="en">Transform retailers from opaque intermediaries to digital nodes. A retailer-facing LINE tool that sends pest alerts + product recommendations by province + auto-triggers DL reorders — without asking for sales data.</span><span class="th">เปลี่ยนร้านค้าจากตัวกลางที่ทึบทึมเป็นโหนดดิจิทัล เครื่องมือ LINE สำหรับร้านค้าที่ส่งการแจ้งเตือนศัตรูพืช + คำแนะนำผลิตภัณฑ์ตามจังหวัด + เรียกการสั่งซื้อ DL อัตโนมัติ โดยไม่ต้องขอข้อมูลยอดขาย</span></p>
+      </div>
+      <div class="innov-card">
+        <div class="innov-num">4</div>
+        <h4><span class="en">New Business Models</span><span class="th">โมเดลธุรกิจใหม่</span></h4>
+        <p><span class="en">Three models to pilot: (1) Seasonal crop program bundles (rice, durian, corn) — subscription-like. (2) Drone service integration — per-rai spray program as a service. (3) Digital advisory as genuine value-add.</span><span class="th">สามโมเดลที่จะทดลอง: (1) แพ็คเกจโปรแกรมพืชตามฤดูกาล (ข้าว ทุเรียน ข้าวโพด) แบบสมัครสมาชิก (2) การผสานบริการโดรน — โปรแกรมพ่นต่อไร่เป็นบริการ (3) การให้คำปรึกษาดิจิทัลเป็นมูลค่าเพิ่มที่แท้จริง</span></p>
+      </div>
+      <div class="innov-card">
+        <div class="innov-num">5</div>
+        <h4><span class="en">Sustainability as Narrative</span><span class="th">ความยั่งยืนในฐานะเรื่องเล่า</span></h4>
+        <p><span class="en">Precision drone application = reduced chemical volume. Soil health monitoring in Northeast = long-term yield improvement. Stories that resonate with global Syngenta stakeholders AND Thai government partners (DEPA, OAE).</span><span class="th">การพ่นโดรนแบบแม่นยำ = ลดปริมาณสารเคมี การตรวจสอบสุขภาพดินในอีสาน = การปรับปรุงผลผลิตระยะยาว เรื่องราวที่สอดคล้องกับผู้มีส่วนได้เสียระดับโลกของ Syngenta และพันธมิตรรัฐบาลไทย (DEPA, สศก.)</span></p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:8px 0 16px;">
+      <span class="en">Thailand AgriTech Ecosystem — Partner, Don't Compete</span>
+      <span class="th" style="display:none;">ระบบนิเวศ AgriTech ไทย — เป็นพันธมิตร ไม่ใช่แข่งขัน</span>
+    </h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th><span class="en">Partner</span><span class="th">พันธมิตร</span></th>
+          <th><span class="en">What They Do</span><span class="th">สิ่งที่พวกเขาทำ</span></th>
+          <th><span class="en">Value for Syngenta</span><span class="th">มูลค่าสำหรับ Syngenta</span></th>
+        </tr></thead>
+        <tbody>
+          <tr><td><strong>Ricult</strong></td><td><span class="en">Digital credit + advisory for rice/corn farmers. Has geo-referenced farm plot database.</span><span class="th">สินเชื่อและคำปรึกษาดิจิทัลสำหรับเกษตรกรข้าว/ข้าวโพด มีฐานข้อมูลแปลงนาพร้อมพิกัด</span></td><td><span class="en">Grower data infrastructure without Syngenta building it</span><span class="th">โครงสร้างพื้นฐานข้อมูลเกษตรกรโดย Syngenta ไม่ต้องสร้างเอง</span></td></tr>
+          <tr><td><strong>NECTEC HandySense</strong></td><td><span class="en">Govt-backed IoT + AI platform. Real-time farm sensors and management dashboards.</span><span class="th">แพลตฟอร์ม IoT + AI รัฐบาลสนับสนุน เซ็นเซอร์ฟาร์มแบบเรียลไทม์</span></td><td><span class="en">Access to government digital agriculture infrastructure</span><span class="th">เข้าถึงโครงสร้างพื้นฐานดิจิทัลเกษตรของรัฐบาล</span></td></tr>
+          <tr><td><strong>Chia Tai / CP Group</strong></td><td><span class="en">Distribution partner AND XAG drone distributor. Controls feed, seeds, retail, and drone networks.</span><span class="th">พันธมิตรการจัดจำหน่ายและตัวแทนจำหน่ายโดรน XAG ควบคุมอาหารสัตว์ เมล็ดพันธุ์ ร้านค้า และเครือข่ายโดรน</span></td><td><span class="en">Channel + drone application data; handle carefully — also a competitor</span><span class="th">ข้อมูลช่องทางและการใช้โดรน จัดการด้วยความระมัดระวัง — เป็นคู่แข่งด้วย</span></td></tr>
+          <tr><td><strong>DEPA</strong></td><td><span class="en">Digital Economy Promotion Agency. Approved 15,000+ loans for IoT/drone in 2024.</span><span class="th">สำนักงานส่งเสริมเศรษฐกิจดิจิทัล อนุมัติสินเชื่อ 15,000+ รายสำหรับ IoT/โดรน ปี 2567</span></td><td><span class="en">Co-ride government digital agriculture subsidy flows</span><span class="th">ขี่กระแสเงินอุดหนุนเกษตรดิจิทัลของรัฐบาลไปพร้อมกัน</span></td></tr>
+          <tr><td><strong>BAAC (ธกส.)</strong></td><td><span class="en">Bank of Agriculture. Dominant agri credit provider. Almost every Thai farmer has an account.</span><span class="th">ธนาคารเพื่อการเกษตรและสหกรณ์การเกษตร ผู้ให้สินเชื่อเกษตรหลัก เกษตรกรไทยเกือบทุกคนมีบัญชี</span></td><td><span class="en">Solve credit problem — provide direct financing for Syngenta products at promotional prices</span><span class="th">แก้ปัญหาสินเชื่อ — ให้สินเชื่อโดยตรงสำหรับผลิตภัณฑ์ Syngenta ในราคาโปรโมชัน</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 5 ====== -->
+  <section id="s5" class="section">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">Driving Digital When Growers Don't Use Apps</span>
+          <span class="h2-th">ขับเคลื่อนดิจิทัลเมื่อเกษตรกรไม่ใช้แอป</span>
+        </h2>
+        <p>
+          <span class="en">The reframe: digital transformation does not start with the grower. It starts with the people the grower trusts.</span>
+          <span class="th">การเปลี่ยนกรอบคิด: การเปลี่ยนแปลงดิจิทัลไม่ได้เริ่มจากเกษตรกร แต่เริ่มจากคนที่เกษตรกรไว้วางใจ</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight red">
+      <p>
+        <span class="en"><strong>The biggest mistake in agricultural DT:</strong> designing for the ideal grower — young, smartphone-native, app-downloading. That grower exists but is not the commercial base. Digital transformation requires the system around the grower to change. When the system changes enough, the grower follows.</span>
+        <span class="th"><strong>ความผิดพลาดที่ใหญ่ที่สุดใน DT เกษตร:</strong> ออกแบบสำหรับเกษตรกรในอุดมคติ — รุ่นใหม่ ใช้สมาร์ทโฟนเป็นธรรมชาติ ดาวน์โหลดแอป เกษตรกรนั้นมีอยู่แต่ไม่ใช่ฐานเชิงพาณิชย์ การเปลี่ยนแปลงดิจิทัลต้องการให้ระบบรอบตัวเกษตรกรเปลี่ยนก่อน เมื่อระบบเปลี่ยนพอแล้ว เกษตรกรจะตามมา</span>
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4><span class="en">1. The Retailer</span><span class="th">1. ร้านค้า</span></h4>
+        <p><span class="en">Every retailer already owns a smartphone. Every retailer already uses LINE — to talk to their dealer, receive promotions, share product photos. They are digital now, today, without training.</span><span class="th">ทุกร้านค้ามีสมาร์ทโฟนอยู่แล้ว ทุกร้านค้าใช้ LINE อยู่แล้ว — คุยกับตัวแทนจำหน่าย รับโปรโมชัน แชร์รูปผลิตภัณฑ์ พวกเขาดิจิทัลอยู่แล้ว วันนี้ โดยไม่ต้องฝึกอบรม</span></p>
+        <p style="margin-top:8px;"><span class="en">What they lack: a tool that makes them better at their job. Give them a LINE OA pest alert + recommended product + how-to-sell message weekly. You have digitized the most powerful channel influencer without asking a single grower to change.</span><span class="th">สิ่งที่ขาด: เครื่องมือที่ทำให้พวกเขาทำงานได้ดีขึ้น ส่งการแจ้งเตือนศัตรูพืช + ผลิตภัณฑ์แนะนำ + ข้อความวิธีขายทาง LINE OA รายสัปดาห์ คุณจะดิจิทัลตัวกลางที่ทรงอำนาจที่สุดโดยไม่ต้องให้เกษตรกรเปลี่ยนแม้แต่คนเดียว</span></p>
+      </div>
+      <div class="card gold">
+        <h4><span class="en">2. The Drone Operator</span><span class="th">2. นักบินโดรน</span></h4>
+        <p><span class="en">75% of insecticide sprays go through drones. Drone operators are young, digitally fluent, and visit 20-50 farms per week. Growers ask them what to spray because they see hundreds of fields.</span><span class="th">75% ของการพ่นสารกำจัดแมลงผ่านโดรน นักบินโดรนรุ่นใหม่ ใช้ดิจิทัลคล่อง เยี่ยมชม 20-50 ฟาร์มต่อสัปดาห์ เกษตรกรถามพวกเขาว่าจะพ่นอะไรเพราะพวกเขาเห็นนับร้อยแปลง</span></p>
+        <p style="margin-top:8px;"><span class="en">They currently recommend whatever is cheapest or has the best retailer margin. Give them Syngenta drone-optimized product guides, a LINE group with technical support, and a loyalty incentive.</span><span class="th">ตอนนี้พวกเขาแนะนำสิ่งที่ถูกที่สุดหรือมีกำไรร้านค้าดีที่สุด มอบคู่มือผลิตภัณฑ์ที่ปรับแต่งสำหรับโดรนของ Syngenta กลุ่ม LINE พร้อมการสนับสนุนทางเทคนิค และแรงจูงใจด้านความภักดี</span></p>
+      </div>
+      <div class="card navy">
+        <h4><span class="en">3. Your Field Team</span><span class="th">3. ทีมภาคสนาม</span></h4>
+        <p><span class="en">34 internal team members gave Simodis Hero VDO a 94% like rate. Your field team is already digital.</span><span class="th">34 สมาชิกทีมภายในให้ Simodis Hero VDO like rate 94% ทีมภาคสนามของคุณดิจิทัลอยู่แล้ว</span></p>
+        <p style="margin-top:8px;"><span class="en">Are they using digital tools in the field? Do they have a structured LINE group sharing live pest intelligence? Do they capture retailer visits on a phone? Digitizing the field team's daily work creates the data foundation you need.</span><span class="th">พวกเขาใช้เครื่องมือดิจิทัลในภาคสนามหรือยัง? มีกลุ่ม LINE ที่มีโครงสร้างสำหรับแบ่งปันข้อมูลศัตรูพืชสดๆ หรือเปล่า? พวกเขาบันทึกการเยี่ยมร้านค้าบนโทรศัพท์หรือยัง? การดิจิทัลงานประจำวันของทีมภาคสนามสร้างฐานข้อมูลที่คุณต้องการ</span></p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>
+        <span class="en"><strong>LINE is not a new app.</strong> It is already installed on virtually every Thai smartphone. Grandmothers in Isan use LINE. Older rice farmers use LINE to talk to their children in Bangkok. LINE OA works inside the app they already have. The grower adds your account like adding a contact — no download, no friction.</span>
+        <span class="th"><strong>LINE ไม่ใช่แอปใหม่</strong> มันติดตั้งอยู่ในสมาร์ทโฟนไทยเกือบทุกเครื่องแล้ว คุณยายในอีสานใช้ LINE เกษตรกรข้าวอาวุโสใช้ LINE คุยกับลูกๆ ในกรุงเทพ LINE OA ทำงานในแอปที่พวกเขามีอยู่แล้ว เกษตรกรเพิ่มบัญชีของคุณเหมือนเพิ่มผู้ติดต่อ — ไม่ต้องดาวน์โหลด ไม่มีแรงต้าน</span>
+      </p>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:24px 0 16px;">
+      <span class="en">The Digital Path to the Grower (Without Touching the Grower)</span>
+      <span class="th" style="display:none;">เส้นทางดิจิทัลสู่เกษตรกร (โดยไม่ต้องแตะตัวเกษตรกร)</span>
+    </h3>
+
+    <div class="journey">
+      <div class="journey-step"><div class="journey-dot">1</div><div class="journey-body">
+        <h4><span class="en">You (DT Lead) become the most informed person in the room</span><span class="th">คุณ (DT Lead) กลายเป็นคนที่มีข้อมูลมากที่สุดในห้อง</span></h4>
+        <p><span class="en">Document, synthesize, and share market and digital intelligence internally. When people ask "where do we start?" — you have the answer.</span><span class="th">บันทึก สังเคราะห์ และแบ่งปันข้อมูลตลาดและดิจิทัลภายใน เมื่อคนถามว่า "เราจะเริ่มจากไหน?" — คุณมีคำตอบ</span></p>
+        <span class="opportunity"><span class="en">Start: today</span><span class="th">เริ่ม: วันนี้</span></span>
+      </div></div>
+      <div class="journey-step"><div class="journey-dot">2</div><div class="journey-body">
+        <h4><span class="en">Field team uses digital tools daily</span><span class="th">ทีมภาคสนามใช้เครื่องมือดิจิทัลทุกวัน</span></h4>
+        <p><span class="en">Structured LINE group for pest intelligence. Mobile visit reports. Retailer stock observations entered on phone, not paper. Creates real-time market data at near-zero cost.</span><span class="th">กลุ่ม LINE ที่มีโครงสร้างสำหรับข้อมูลศัตรูพืช รายงานการเยี่ยมชมบนมือถือ บันทึกสต็อกร้านค้าบนโทรศัพท์ ไม่ใช่กระดาษ สร้างข้อมูลตลาดแบบเรียลไทม์ด้วยต้นทุนเกือบศูนย์</span></p>
+        <span class="opportunity"><span class="en">Start: next field visit</span><span class="th">เริ่ม: การเยี่ยมชมภาคสนามครั้งถัดไป</span></span>
+      </div></div>
+      <div class="journey-step"><div class="journey-dot">3</div><div class="journey-body">
+        <h4><span class="en">10 most curious retailers receive weekly LINE value messages</span><span class="th">ร้านค้า 10 รายที่อยากรู้มากที่สุดรับข้อความคุณค่าทาง LINE รายสัปดาห์</span></h4>
+        <p><span class="en">Not the biggest retailers — the most digitally curious ones. Pest alerts, product tips, crop calendar reminders. Watch their sales. They become your case study for the next 100.</span><span class="th">ไม่ใช่ร้านค้าที่ใหญ่ที่สุด แต่ที่อยากรู้ดิจิทัลมากที่สุด การแจ้งเตือนศัตรูพืช เคล็ดลับผลิตภัณฑ์ การเตือนปฏิทินพืช ดูยอดขายของพวกเขา พวกเขากลายเป็นกรณีศึกษาสำหรับ 100 รายถัดไป</span></p>
+        <span class="opportunity"><span class="en">Start: next week</span><span class="th">เริ่ม: สัปดาห์หน้า</span></span>
+      </div></div>
+      <div class="journey-step"><div class="journey-dot">4</div><div class="journey-body">
+        <h4><span class="en">Drone operators become Syngenta channel partners</span><span class="th">นักบินโดรนกลายเป็นพันธมิตรช่องทางของ Syngenta</span></h4>
+        <p><span class="en">Product compatibility guides for drone application. LINE group with agronomic support. Small loyalty program. They carry Syngenta product knowledge to every farm they visit.</span><span class="th">คู่มือความเข้ากันได้ของผลิตภัณฑ์สำหรับการพ่นโดรน กลุ่ม LINE พร้อมการสนับสนุนทางการเกษตร โปรแกรมความภักดีเล็กๆ พวกเขานำความรู้ผลิตภัณฑ์ Syngenta ไปยังทุกฟาร์มที่เยี่ยม</span></p>
+        <span class="opportunity"><span class="en">Start: Q3 2026</span><span class="th">เริ่ม: Q3 2569</span></span>
+      </div></div>
+      <div class="journey-step"><div class="journey-dot">5</div><div class="journey-body">
+        <h4><span class="en">Grower hears the right recommendation at the right moment</span><span class="th">เกษตรกรได้รับคำแนะนำที่ถูกต้องในเวลาที่เหมาะสม</span></h4>
+        <p><span class="en">The grower never downloaded an app. But digital transformed every link in the chain around them. The outcome — correct product, correct timing, correct price — arrives at the farm anyway.</span><span class="th">เกษตรกรไม่เคยดาวน์โหลดแอป แต่ดิจิทัลเปลี่ยนทุกลิงก์ในห่วงโซ่รอบตัวพวกเขา ผลลัพธ์ — ผลิตภัณฑ์ที่ถูกต้อง เวลาที่เหมาะสม ราคาที่ถูกต้อง — มาถึงฟาร์มไม่ว่าจะอย่างไร</span></p>
+        <span class="opportunity"><span class="en">The lighthouse proof point</span><span class="th">จุดพิสูจน์ของ Lighthouse</span></span>
+      </div></div>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 6 ====== -->
+  <section id="s6" class="section">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">The Retailer Tax Barrier</span>
+          <span class="h2-th">อุปสรรคด้านภาษีของร้านค้า</span>
+        </h2>
+        <p>
+          <span class="en">The most under-acknowledged constraint in Thai agri DT — and how to design around it.</span>
+          <span class="th">ข้อจำกัดที่ถูกมองข้ามมากที่สุดใน DT เกษตรไทย — และวิธีออกแบบหลีกเลี่ยง</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="highlight red">
+      <p>
+        <span class="en"><strong>The real reason retailers resist digital systems:</strong> Thai agri retailers — especially small and mid-size shops — operate largely in the informal economy. Any system that captures their transaction data creates a tax exposure they genuinely fear. This is not resistance to technology. It is rational economic self-protection.</span>
+        <span class="th"><strong>เหตุผลที่แท้จริงที่ร้านค้าต่อต้านระบบดิจิทัล:</strong> ร้านค้าเกษตรไทย โดยเฉพาะร้านขนาดเล็กถึงกลาง ดำเนินงานส่วนใหญ่ในเศรษฐกิจนอกระบบ ระบบใดก็ตามที่บันทึกข้อมูลธุรกรรมของพวกเขาสร้างความเสี่ยงทางภาษีที่พวกเขากลัวอย่างแท้จริง นี่ไม่ใช่การต่อต้านเทคโนโลยี แต่เป็นการปกป้องตัวเองทางเศรษฐกิจที่สมเหตุสมผล</span>
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4><span class="en">Type A — GIVE Retailers Something Useful ✓</span><span class="th">ประเภท A — ให้สิ่งที่มีประโยชน์แก่ร้านค้า ✓</span></h4>
+        <ul>
+          <li><span class="en">Pest alerts for their province via LINE</span><span class="th">การแจ้งเตือนศัตรูพืชสำหรับจังหวัดของพวกเขาทาง LINE</span></li>
+          <li><span class="en">Product training and crop recommendations</span><span class="th">การฝึกอบรมผลิตภัณฑ์และคำแนะนำพืช</span></li>
+          <li><span class="en">Campaign materials and pricing updates</span><span class="th">วัสดุแคมเปญและอัปเดตราคา</span></li>
+          <li><span class="en">New product launch content</span><span class="th">คอนเทนต์เปิดตัวผลิตภัณฑ์ใหม่</span></li>
+        </ul>
+        <p style="margin-top:10px;font-size:13px;color:#166534;font-weight:600;"><span class="en">Retailer receives value. Nothing is recorded about their business. They have no reason to refuse.</span><span class="th">ร้านค้าได้รับมูลค่า ไม่มีสิ่งใดบันทึกเกี่ยวกับธุรกิจของพวกเขา พวกเขาไม่มีเหตุผลที่จะปฏิเสธ</span></p>
+      </div>
+      <div class="card red">
+        <h4><span class="en">Type B — ASK Retailers to Report Data ✗</span><span class="th">ประเภท B — ขอให้ร้านค้ารายงานข้อมูล ✗</span></h4>
+        <ul>
+          <li><span class="en">Log sales transactions</span><span class="th">บันทึกธุรกรรมการขาย</span></li>
+          <li><span class="en">Scan product codes at point of sale</span><span class="th">สแกนรหัสผลิตภัณฑ์ ณ จุดขาย</span></li>
+          <li><span class="en">Report stock levels in a system</span><span class="th">รายงานระดับสต็อกในระบบ</span></li>
+          <li><span class="en">Register which growers bought what</span><span class="th">ลงทะเบียนว่าเกษตรกรคนไหนซื้ออะไร</span></li>
+        </ul>
+        <p style="margin-top:10px;font-size:13px;color:#991B1B;font-weight:600;"><span class="en">This is where tax anxiety is triggered. Even if Syngenta's intent is commercial intelligence, the retailer cannot distinguish it from audit risk.</span><span class="th">นี่คือจุดที่ความกังวลเรื่องภาษีถูกกระตุ้น แม้เจตนาของ Syngenta คือข้อมูลเชิงพาณิชย์ ร้านค้าแยกไม่ออกจากความเสี่ยงการตรวจสอบ</span></p>
+      </div>
+    </div>
+
+    <div class="highlight gold">
+      <p>
+        <span class="en"><strong>Competitive advantage:</strong> Your competitors are designing retailer digital programs that will face exactly this resistance and will not understand why adoption is low. You have named the real barrier. You can design around it from the start. That is more credible and more exportable than a program that worked perfectly on paper but failed in the field.</span>
+        <span class="th"><strong>ความได้เปรียบในการแข่งขัน:</strong> คู่แข่งของคุณกำลังออกแบบโปรแกรมดิจิทัลสำหรับร้านค้าที่จะเผชิญแรงต้านนี้เป็นการเฉพาะและจะไม่เข้าใจว่าทำไมการรับใช้งานต่ำ คุณได้ระบุอุปสรรคที่แท้จริงแล้ว คุณสามารถออกแบบหลีกเลี่ยงได้ตั้งแต่เริ่ม นั่นน่าเชื่อถือและส่งออกได้มากกว่าโปรแกรมที่สมบูรณ์แบบบนกระดาษแต่ล้มเหลวในภาคสนาม</span>
+      </p>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  <!-- ====== SECTION 7 ====== -->
+  <section id="s7" class="section">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div class="section-title">
+        <h2>
+          <span class="h2-en">The Credit &amp; Pricing Problem</span>
+          <span class="h2-th">ปัญหาสินเชื่อและราคา</span>
+        </h2>
+        <p>
+          <span class="en">Growers order at events but pay at the retailer — on credit. How does Syngenta ensure the promotional price actually reaches the grower?</span>
+          <span class="th">เกษตรกรสั่งซื้อในงานอีเวนต์แต่จ่ายที่ร้านค้า — ด้วยสินเชื่อ Syngenta จะมั่นใจได้อย่างไรว่าราคาโปรโมชันถึงมือเกษตรกรจริงๆ?</span>
+        </p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:0 0 16px;">
+      <span class="en">The Commercial Leak — How It Happens</span>
+      <span class="th" style="display:none;">การรั่วไหลเชิงพาณิชย์ — มันเกิดขึ้นอย่างไร</span>
+    </h3>
+
+    <div class="flow">
+      <div class="flow-step active"><span class="en">Syngenta sets promotional price at event</span><span class="th">Syngenta กำหนดราคาโปรโมชันในงาน</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="en">Grower commits to buy (no money today)</span><span class="th">เกษตรกรตกลงซื้อ (ไม่มีเงินวันนี้)</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><span class="en">Grower collects at retailer + pays on credit</span><span class="th">เกษตรกรรับสินค้าที่ร้านค้า + จ่ายด้วยสินเชื่อ</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step problem"><span class="en">Retailer sets ACTUAL price — not Syngenta</span><span class="th">ร้านค้ากำหนดราคาจริง — ไม่ใช่ Syngenta</span></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step problem"><span class="en">Syngenta never knows what the grower paid</span><span class="th">Syngenta ไม่รู้ว่าเกษตรกรจ่ายเท่าไร</span></div>
+    </div>
+
+    <div class="highlight red">
+      <p>
+        <span class="en"><strong>Root cause: Credit = Control.</strong> The retailer who provides credit to the grower controls what the grower buys, at what price, and from whom. As long as the retailer is the grower's bank, the retailer controls the commercial outcome. No digital tool or promotion can override this until the credit dependency is addressed.</span>
+        <span class="th"><strong>สาเหตุหลัก: สินเชื่อ = การควบคุม</strong> ร้านค้าที่ให้สินเชื่อแก่เกษตรกรควบคุมว่าเกษตรกรซื้ออะไร ในราคาเท่าไร และจากใคร ตราบใดที่ร้านค้าเป็นธนาคารของเกษตรกร ร้านค้าควบคุมผลลัพธ์เชิงพาณิชย์ ไม่มีเครื่องมือดิจิทัลหรือโปรโมชันใดที่จะแทนที่ได้จนกว่าจะแก้ปัญหาการพึ่งพาสินเชื่อ</span>
+      </p>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:700;color:var(--navy);margin:24px 0 16px;">
+      <span class="en">Three Models That Solve It</span>
+      <span class="th" style="display:none;">สามโมเดลที่แก้ปัญหา</span>
+    </h3>
+
+    <div class="card-grid">
+      <div class="card green">
+        <h4><span class="en">Model 1: Price-Locked Digital Voucher</span><span class="th">โมเดล 1: คูปองดิจิทัลล็อคราคา</span></h4>
+        <p><span class="en">At the event, grower receives a LINE-delivered voucher with specific product, specific price, and 30-day expiry. Grower arrives at retailer holding proof of what they should pay. Retailer honors it and claims discount from Syngenta's trade budget.</span><span class="th">ในงาน เกษตรกรได้รับคูปองทาง LINE พร้อมผลิตภัณฑ์เฉพาะ ราคาเฉพาะ และอายุ 30 วัน เกษตรกรไปที่ร้านค้าพร้อมหลักฐานว่าควรจ่ายเท่าไร ร้านค้าให้ตามนั้นและเรียกส่วนลดจากงบการค้าของ Syngenta</span></p>
+        <p style="margin-top:8px;"><strong><span class="en">Why it works:</span><span class="th">ทำไมถึงได้ผล:</span></strong> <span class="en">Uses existing LINE + "ช่วยชาวนาไทย+" infrastructure. Zero new system required. Grower has price transparency.</span><span class="th">ใช้โครงสร้างพื้นฐาน LINE + "ช่วยชาวนาไทย+" ที่มีอยู่แล้ว ไม่ต้องมีระบบใหม่ เกษตรกรมีความโปร่งใสด้านราคา</span></p>
+      </div>
+      <div class="card gold">
+        <h4><span class="en">Model 2: Partial PromptPay at Event</span><span class="th">โมเดล 2: PromptPay บางส่วนในงาน</span></h4>
+        <p><span class="en">Set up PromptPay / QR code at the event. Grower pays even 20-30% directly to Syngenta. Receives a LINE receipt showing total agreed price and outstanding balance.</span><span class="th">ตั้ง PromptPay / QR Code ในงาน เกษตรกรจ่ายแม้แต่ 20-30% โดยตรงแก่ Syngenta ได้รับใบเสร็จ LINE แสดงราคาที่ตกลงรวมและยอดคงเหลือ</span></p>
+        <p style="margin-top:8px;"><strong><span class="en">Why it works:</span><span class="th">ทำไมถึงได้ผล:</span></strong> <span class="en">Syngenta captures a verified transaction record — grower ID, product, price, date — without the retailer. Retailer's pricing power on the remainder is significantly constrained by the receipt.</span><span class="th">Syngenta บันทึกบันทึกธุรกรรมที่ตรวจสอบแล้ว — ID เกษตรกร ผลิตภัณฑ์ ราคา วันที่ โดยไม่ผ่านร้านค้า อำนาจกำหนดราคาของร้านค้าในส่วนที่เหลือถูกจำกัดอย่างมากด้วยใบเสร็จ</span></p>
+      </div>
+      <div class="card navy">
+        <h4><span class="en">Model 3: BAAC Credit Integration</span><span class="th">โมเดล 3: การผสาน ธ.ก.ส.</span></h4>
+        <p><span class="en">Partner with BAAC (ธกส.) — the dominant agri credit bank with accounts for almost every Thai farmer. Growers use BAAC credit line to purchase Syngenta products at the promotional price, processed at the event via QR. Retailer fulfills product and is reimbursed at wholesale.</span><span class="th">ร่วมมือกับ ธ.ก.ส. — ธนาคารสินเชื่อเกษตรหลักที่เกษตรกรไทยเกือบทุกคนมีบัญชี เกษตรกรใช้วงเงินสินเชื่อ ธ.ก.ส. ซื้อผลิตภัณฑ์ Syngenta ในราคาโปรโมชัน ผ่าน QR ในงาน ร้านค้าส่งมอบผลิตภัณฑ์และได้รับชดเชยราคาขายส่ง</span></p>
+        <p style="margin-top:8px;"><strong><span class="en">Why it works:</span><span class="th">ทำไมถึงได้ผล:</span></strong> <span class="en">Removes retailer from the credit equation entirely. Grower gets fair pricing. Syngenta gets transaction data. <strong>No competitor has done this in Thailand yet.</strong></span><span class="th">ลบร้านค้าออกจากสมการสินเชื่อทั้งหมด เกษตรกรได้ราคาที่ยุติธรรม Syngenta ได้ข้อมูลธุรกรรม <strong>ยังไม่มีคู่แข่งรายใดทำสิ่งนี้ในไทย</strong></span></p>
+      </div>
+    </div>
+
+    <div class="highlight">
+      <p>
+        <span class="en"><strong>The strategic prize:</strong> The most powerful thing the Thailand lighthouse can demonstrate is not a new app or a slick campaign. It is a new financial model that gives growers access to their promotional price regardless of which retailer they use. That is a problem no competitor has solved in Thailand. Solving it — even in one province, even for one crop — is a genuinely defensible innovation that global teams will find credible and exportable.</span>
+        <span class="th"><strong>รางวัลเชิงกลยุทธ์:</strong> สิ่งที่ทรงพลังที่สุดที่ Lighthouse ไทยสามารถแสดงให้เห็นไม่ใช่แอปใหม่หรือแคมเปญเก๋ไก๋ แต่คือโมเดลการเงินใหม่ที่ให้เกษตรกรเข้าถึงราคาโปรโมชันของตนโดยไม่คำนึงว่าพวกเขาใช้ร้านค้าใด นั่นคือปัญหาที่ไม่มีคู่แข่งรายใดแก้ได้ในไทย การแก้มัน — แม้แต่ในจังหวัดเดียว แม้แต่สำหรับพืชชนิดเดียว — คือนวัตกรรมที่ปกป้องได้อย่างแท้จริงซึ่งทีมระดับโลกจะพบว่าน่าเชื่อถือและส่งออกได้</span>
+      </p>
+    </div>
+    <div class="divider"></div>
+  </section>
+
+  </div><!-- end .content -->
+
+  <!-- ====== FINAL STORYLINE ====== -->
+  <div id="storyline" class="storyline-section">
+    <div style="max-width:760px;">
+      <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:600;margin-bottom:10px;">★ <span class="en">Final Section</span><span class="th">ส่วนสุดท้าย</span></div>
+      <h2><span class="en">Your Offsite Storyline</span><span class="th" style="display:none;">โครงเรื่องสำหรับการนำเสนอ</span></h2>
+      <p class="subtitle">
+        <span class="en">A narrative arc for presenting Thailand as the global digital transformation lighthouse — built to be intelligent, honest, and memorable.</span>
+        <span class="th">โครงเรื่องสำหรับนำเสนอไทยในฐานะ Lighthouse การเปลี่ยนแปลงดิจิทัลระดับโลก — สร้างมาเพื่อให้ฉลาด ซื่อสัตย์ และน่าจดจำ</span>
+      </p>
+    </div>
+
+    <div class="story-arc">
+
+      <div class="story-beat hook">
+        <div class="story-icon">🎯</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 1 — The Hook</span><span class="th">บีต 1 — ตะขอ</span></div>
+          <h3>
+            <span class="en">"This is not a presentation about Thailand. It's a presentation about what works — and why it matters for every market you manage."</span>
+            <span class="th" style="display:none;">"นี่ไม่ใช่การนำเสนอเกี่ยวกับไทย แต่เป็นการนำเสนอเกี่ยวกับสิ่งที่ได้ผล — และทำไมมันสำคัญสำหรับทุกตลาดที่คุณดูแล"</span>
+          </h3>
+          <p>
+            <span class="en">Open by naming the real stakes. Thailand is Syngenta's lighthouse not because it is the biggest market, but because it is the most complex. If a digital and commercial model works here — across 12 crops, 4 regions, 3 farming generations, an informal retail economy, and a 55-year-old average farmer — it works anywhere in ASEAN.</span>
+            <span class="th">เปิดด้วยการระบุเดิมพันที่แท้จริง ไทยคือ Lighthouse ของ Syngenta ไม่ใช่เพราะเป็นตลาดที่ใหญ่ที่สุด แต่เพราะซับซ้อนที่สุด ถ้าโมเดลดิจิทัลและเชิงพาณิชย์ใช้ได้ที่นี่ — ครอบ 12 พืช 4 ภูมิภาค 3 รุ่นเกษตรกร เศรษฐกิจค้าปลีกนอกระบบ และเกษตรกรอายุเฉลี่ย 55 ปี — มันใช้ได้ทุกที่ใน ASEAN</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"We have 20 years of research in this folder. Most companies have none. That knowledge is not an archive — it is our competitive moat."</span><span class="th">"เรามีงานวิจัย 20 ปีในโฟลเดอร์นี้ บริษัทส่วนใหญ่ไม่มีเลย ความรู้นั้นไม่ใช่คลังเก็บ — มันคือคูเมืองการแข่งขันของเรา"</span></p>
+            <p><span class="en">"The question is not whether Thailand is digital-ready. 95% internet penetration says it is. The question is whether Syngenta is ready to use it."</span><span class="th">"คำถามไม่ใช่ว่าไทยพร้อมดิจิทัลหรือยัง การเข้าถึงอินเทอร์เน็ต 95% บอกว่าพร้อม คำถามคือ Syngenta พร้อมที่จะใช้มันหรือยัง"</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-beat context">
+        <div class="story-icon">🗺️</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 2 — The Context</span><span class="th">บีต 2 — บริบท</span></div>
+          <h3>
+            <span class="en">"Thailand is not one market. It is four completely different agricultural worlds inside one country."</span>
+            <span class="th" style="display:none;">"ไทยไม่ใช่ตลาดเดียว แต่คือสี่โลกเกษตรที่แตกต่างกันโดยสิ้นเชิงภายในประเทศเดียว"</span>
+          </h3>
+          <p>
+            <span class="en">Show the regional map. The fertile Central Plains where commercial farmers calculate ROI. The sandy Isan plateau where one rainfed rice crop is all the land can support. The diversified North where longan and garlic grow alongside rice. The South where a single durian grower invests more per rai than a rice farmer earns in a season.</span>
+            <span class="th">แสดงแผนที่ภูมิภาค ภาคกลางที่อุดมสมบูรณ์ซึ่งเกษตรกรเชิงพาณิชย์คำนวณ ROI ที่ราบสูงอีสานที่ทรายซึ่งข้าวน้ำฝนหนึ่งรอบคือทั้งหมดที่ดินรองรับได้ ภาคเหนือที่หลากหลายซึ่งลำไยและกระเทียมเติบโตข้างๆ ข้าว ภาคใต้ซึ่งเกษตรกรทุเรียนรายเดียวลงทุนต่อไร่มากกว่าเกษตรกรข้าวหาได้ทั้งฤดู</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"Our Armure fungicide is the #1 brand in Thai rice by awareness and purchase intent. That was built across 15 years of continuous research and grower trust."</span><span class="th">"สารกำจัดโรค Armure ของเราเป็นแบรนด์อันดับ 1 ในข้าวไทยตามการรับรู้และความตั้งใจซื้อ นั่นสร้างขึ้นใน 15 ปีของการวิจัยต่อเนื่องและความไว้วางใจของเกษตรกร"</span></p>
+            <p><span class="en">"Durian production grew 10.8% in one year. We have a product — Simodis — designed exactly for this growth. The timing is not coincidence. It is strategic preparation."</span><span class="th">"การผลิตทุเรียนเติบโต 10.8% ในหนึ่งปี เรามีผลิตภัณฑ์ — Simodis — ที่ออกแบบมาสำหรับการเติบโตนี้โดยเฉพาะ เวลาไม่ใช่ความบังเอิญ มันคือการเตรียมพร้อมเชิงกลยุทธ์"</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-beat tension">
+        <div class="story-icon">⚡</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 3 — The Tension (Be Honest)</span><span class="th">บีต 3 — ความตึงเครียด (พูดความจริง)</span></div>
+          <h3>
+            <span class="en">"Here is what makes this hard. And it would be dishonest to pretend otherwise."</span>
+            <span class="th" style="display:none;">"นี่คือสิ่งที่ทำให้มันยาก และมันจะไม่ซื่อสัตย์ถ้าแกล้งทำเป็นว่าเป็นอย่างอื่น"</span>
+          </h3>
+          <p>
+            <span class="en">This is the beat that makes the presentation credible. Do not skip the hard truths. Name them. The average Thai rice farmer is 55-60 years old and getting older. Fewer than 18% of farm operators are under 45. Generic products are taking PAT share from branded MNC products. The retailers who are our most important channel partners operate informally and fear anything that looks like a data system.</span>
+            <span class="th">นี่คือบีตที่ทำให้การนำเสนอน่าเชื่อถือ อย่าข้ามความจริงที่ยาก ระบุชื่อมัน เกษตรกรข้าวไทยโดยเฉลี่ยอายุ 55-60 ปีและแก่ลงเรื่อยๆ น้อยกว่า 18% ของผู้ดำเนินกิจการฟาร์มอายุต่ำกว่า 45 ผลิตภัณฑ์สามัญกำลังแย่งส่วนแบ่ง PAT จากผลิตภัณฑ์ MNC ที่มีแบรนด์ ร้านค้าที่เป็นพันธมิตรช่องทางสำคัญที่สุดของเราดำเนินงานนอกระบบและกลัวสิ่งใดก็ตามที่ดูเหมือนระบบข้อมูล</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"These are not new problems. But they are problems that traditional marketing cannot solve. They require a different approach — and that is exactly what the lighthouse is designed to develop."</span><span class="th">"เหล่านี้ไม่ใช่ปัญหาใหม่ แต่เป็นปัญหาที่การตลาดแบบดั้งเดิมแก้ไม่ได้ พวกมันต้องการแนวทางที่แตกต่าง — และนั่นคือสิ่งที่ Lighthouse ออกแบบมาเพื่อพัฒนา"</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-beat turn">
+        <div class="story-icon">💡</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 4 — The Strategic Turn</span><span class="th">บีต 4 — การพลิกผัน</span></div>
+          <h3>
+            <span class="en">"We stopped asking 'how do we go digital?' We started asking 'who in this ecosystem is already digital, and how do we work through them?'"</span>
+            <span class="th" style="display:none;">"เราหยุดถามว่า 'เราจะไปดิจิทัลได้อย่างไร?' เราเริ่มถามว่า 'ใครในระบบนิเวศนี้ดิจิทัลอยู่แล้ว และเราจะทำงานผ่านพวกเขาได้อย่างไร?'"</span>
+          </h3>
+          <p>
+            <span class="en">This is the insight that reframes everything. The grower does not need to download an app. The drone operator who visits 50 farms per week already has one. The retailer who trusts a LINE message from Syngenta more than a billboard already uses LINE every day. The field rep who could share a live pest alert from the field already has a smartphone in their pocket.</span>
+            <span class="th">นี่คือข้อมูลเชิงลึกที่เปลี่ยนกรอบทุกอย่าง เกษตรกรไม่จำเป็นต้องดาวน์โหลดแอป นักบินโดรนที่เยี่ยม 50 ฟาร์มต่อสัปดาห์มีอยู่แล้ว ร้านค้าที่ไว้วางใจข้อความ LINE จาก Syngenta มากกว่าป้ายโฆษณาใช้ LINE ทุกวันอยู่แล้ว ตัวแทนภาคสนามที่สามารถแบ่งปันการแจ้งเตือนศัตรูพืชสดจากภาคสนามมีสมาร์ทโฟนในกระเป๋าอยู่แล้ว</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"The retailer will never enter sales data into a system. Not because they are lazy — but because their livelihood depends on staying invisible to the tax authority. We know this. Our competitors do not."</span><span class="th">"ร้านค้าจะไม่มีวันป้อนข้อมูลการขายเข้าระบบ ไม่ใช่เพราะขี้เกียจ แต่เพราะชีวิตของพวกเขาขึ้นอยู่กับการเป็นที่มองไม่เห็นของหน่วยงานภาษี เรารู้เรื่องนี้ คู่แข่งของเราไม่รู้"</span></p>
+            <p><span class="en">"LINE is not a new app. It is already in every pocket in rural Thailand. We do not need to change behavior. We need to show up where behavior already exists."</span><span class="th">"LINE ไม่ใช่แอปใหม่ มันอยู่ในทุกกระเป๋าในชนบทไทยอยู่แล้ว เราไม่จำเป็นต้องเปลี่ยนพฤติกรรม เราต้องปรากฏตัวที่ที่พฤติกรรมมีอยู่แล้ว"</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-beat vision">
+        <div class="story-icon">🚀</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 5 — The Innovation Vision</span><span class="th">บีต 5 — วิสัยทัศน์นวัตกรรม</span></div>
+          <h3>
+            <span class="en">"Here are the five bets we are making — and what we will prove by making them."</span>
+            <span class="th" style="display:none;">"นี่คือห้าการเดิมพันที่เรากำลังทำ — และสิ่งที่เราจะพิสูจน์ด้วยการทำมัน"</span>
+          </h3>
+          <p>
+            <span class="en">Present the five innovation dimensions clearly: data strategy, platform strategy (Cropwise via LINE OA), channel innovation (retailer as digital pest intelligence node), new business models (seasonal crop program bundles), and sustainability narrative (precision application reducing chemical volumes).</span>
+            <span class="th">นำเสนอห้ามิตินวัตกรรมอย่างชัดเจน: กลยุทธ์ข้อมูล กลยุทธ์แพลตฟอร์ม (Cropwise ผ่าน LINE OA) นวัตกรรมช่องทาง (ร้านค้าเป็นโหนดข้อมูลศัตรูพืชดิจิทัล) โมเดลธุรกิจใหม่ (แพ็คเกจโปรแกรมพืชตามฤดูกาล) และเรื่องเล่าความยั่งยืน (การพ่นแบบแม่นยำลดปริมาณสารเคมี)</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"If we can prove that a grower in Suphanburi paid the price we advertised in Chanthaburi, because we built a financial model that makes it possible — that is not a Thai success story. That is an ASEAN playbook."</span><span class="th">"ถ้าเราพิสูจน์ได้ว่าเกษตรกรในสุพรรณบุรีจ่ายราคาที่เราโฆษณาในจันทบุรี เพราะเราสร้างโมเดลการเงินที่ทำให้มันเป็นไปได้ — นั่นไม่ใช่เรื่องราวความสำเร็จของไทย นั่นคือ Playbook ของ ASEAN"</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-beat ask">
+        <div class="story-icon">🌟</div>
+        <div class="story-body">
+          <div class="beat-label"><span class="en">Beat 6 — The Close</span><span class="th">บีต 6 — การปิด</span></div>
+          <h3>
+            <span class="en">"Thailand is not asking to be a case study. It is asking to be a proof of concept that every other market can use."</span>
+            <span class="th" style="display:none;">"ไทยไม่ได้ขอเป็นกรณีศึกษา แต่ขอเป็น Proof of Concept ที่ทุกตลาดอื่นสามารถใช้ได้"</span>
+          </h3>
+          <p>
+            <span class="en">End with the lighthouse logic stated clearly. The value of the Thailand program is not its size. It is its depth and its honesty. Twenty years of research. A team that understands the real barriers — not the polished-strategy-document version, but the tax-avoiding-retailer, the credit-dependent-grower, the 60-year-old-farmer-who-uses-LINE-but-not-apps version.</span>
+            <span class="th">ปิดด้วยตรรกะ Lighthouse ที่ระบุอย่างชัดเจน มูลค่าของโปรแกรมไทยไม่ใช่ขนาด แต่คือความลึกและความซื่อสัตย์ งานวิจัยยี่สิบปี ทีมที่เข้าใจอุปสรรคที่แท้จริง ไม่ใช่เวอร์ชันเอกสารกลยุทธ์เงางาม แต่เวอร์ชันร้านค้าหลบภาษี เกษตรกรพึ่งพาสินเชื่อ เกษตรกรอายุ 60 ที่ใช้ LINE แต่ไม่ใช้แอป</span>
+          </p>
+          <div class="key-lines">
+            <p><span class="en">"We did not start with a budget or a platform. We started with a question: what do growers, retailers, and drone operators actually need, and where do they already live digitally? Everything else followed from that."</span><span class="th">"เราไม่ได้เริ่มด้วยงบประมาณหรือแพลตฟอร์ม เราเริ่มด้วยคำถาม: เกษตรกร ร้านค้า และนักบินโดรนต้องการอะไรจริงๆ และพวกเขาอาศัยอยู่ที่ไหนในดิจิทัลอยู่แล้ว? ทุกอย่างตามมาจากนั้น"</span></p>
+            <p><span class="en">"The lighthouse is lit. Now we need to decide how bright we want it to shine."</span><span class="th">"ประภาคารถูกจุดแล้ว ตอนนี้เราต้องตัดสินใจว่าต้องการให้มันส่องสว่างแค่ไหน"</span></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="questions-box">
+      <h4><span class="en">Five Questions the Audience Will Ask — Know Your Answers</span><span class="th">ห้าคำถามที่ผู้ฟังจะถาม — รู้คำตอบของคุณ</span></h4>
+      <ol>
+        <li>
+          <strong><span class="en">What specific problem does digital solve for Thai growers that they cannot solve today without it?</span><span class="th">ปัญหาเฉพาะอะไรที่ดิจิทัลแก้ให้เกษตรกรไทยที่พวกเขาแก้ไม่ได้วันนี้โดยไม่มีมัน?</span></strong>
+          <span class="en">Answer: spray timing precision (pest alert to action in &lt;24 hrs), price transparency at purchase, and access to agronomic knowledge regardless of where they live.</span><span class="th">คำตอบ: ความแม่นยำในเวลาพ่น (แจ้งเตือนศัตรูพืชถึงดำเนินการใน &lt;24 ชม.) ความโปร่งใสด้านราคา ณ จุดซื้อ และการเข้าถึงความรู้การเกษตรโดยไม่คำนึงว่าอยู่ที่ไหน</span>
+        </li>
+        <li>
+          <strong><span class="en">What data do you collect and what commercial advantage does it create?</span><span class="th">คุณเก็บข้อมูลอะไรและมันสร้างความได้เปรียบเชิงพาณิชย์อะไร?</span></strong>
+          <span class="en">Answer: geo-referenced farm-level spray and outcome data, collected through grower-side LINE coupons and drone operator records — used to recommend the right product at the right moment to the right grower.</span><span class="th">คำตอบ: ข้อมูลการพ่นและผลลัพธ์ระดับฟาร์มพร้อมพิกัด รวบรวมผ่านคูปอง LINE ฝั่งเกษตรกรและบันทึกนักบินโดรน ใช้แนะนำผลิตภัณฑ์ที่ถูกต้องในเวลาที่เหมาะสมให้เกษตรกรที่ถูกต้อง</span>
+        </li>
+        <li>
+          <strong><span class="en">How does digital change the retailer's role, and do they benefit or feel threatened?</span><span class="th">ดิจิทัลเปลี่ยนบทบาทของร้านค้าอย่างไร และพวกเขาได้รับประโยชน์หรือรู้สึกถูกคุกคาม?</span></strong>
+          <span class="en">Answer: we designed digital to make retailers more intelligent and more profitable, never to surveil or replace them. The retailer is the last-mile advisor. Digital makes them a better one.</span><span class="th">คำตอบ: เราออกแบบดิจิทัลเพื่อทำให้ร้านค้าฉลาดและทำกำไรได้มากขึ้น ไม่ใช่เพื่อสอดส่องหรือแทนที่พวกเขา ร้านค้าคือที่ปรึกษา Last Mile ดิจิทัลทำให้พวกเขาเป็นที่ปรึกษาที่ดีขึ้น</span>
+        </li>
+        <li>
+          <strong><span class="en">What does this prove that justifies replication in Indonesia, Vietnam, or India?</span><span class="th">มันพิสูจน์อะไรที่รองรับการจำลองในอินโดนีเซีย เวียดนาม หรืออินเดีย?</span></strong>
+          <span class="en">Answer: a model for informal-economy agri markets where growers are older, retailers fear data systems, and credit dependency distorts pricing — which describes most of Southeast and South Asia.</span><span class="th">คำตอบ: โมเดลสำหรับตลาดเกษตรเศรษฐกิจนอกระบบซึ่งเกษตรกรอาวุโสกว่า ร้านค้ากลัวระบบข้อมูล และการพึ่งพาสินเชื่อบิดเบือนราคา ซึ่งอธิบาย ASEAN และเอเชียใต้ส่วนใหญ่</span>
+        </li>
+        <li>
+          <strong><span class="en">What is the one metric that, if it moves, proves the model is working?</span><span class="th">ตัวชี้วัดหนึ่งที่ถ้ามันเคลื่อน พิสูจน์ว่าโมเดลกำลังได้ผลคืออะไร?</span></strong>
+          <span class="en">Answer: the percentage of Syngenta promotional sales where the grower paid the advertised price. Today it is unknown. In 12 months, we will know — and it will be higher than it is now.</span><span class="th">คำตอบ: เปอร์เซ็นต์ของยอดขายโปรโมชัน Syngenta ที่เกษตรกรจ่ายราคาที่โฆษณา วันนี้ไม่ทราบ ใน 12 เดือน เราจะรู้ — และมันจะสูงกว่าตอนนี้</span>
+        </li>
+      </ol>
+    </div>
+
+  </div><!-- end storyline section -->
+
+  <div class="content" style="padding-top:40px;padding-bottom:40px;">
+    <p style="font-size:12px;color:#9CA3AF;text-align:center;">Compiled for Pawitra Jittasen · Syngenta Thailand Digital Transformation Lead · May 2026 · Classification: Internal Use Only · ใช้ภายในเท่านั้น</p>
+  </div>
+
+</div><!-- end .main -->
+
+<script>
+  function setLang(lang) {
+    document.body.classList.remove('show-th', 'show-both');
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    if (lang === 'th') {
+      document.body.classList.add('show-th');
+      document.querySelectorAll('.lang-btn')[1].classList.add('active');
+    } else if (lang === 'both') {
+      document.body.classList.add('show-both');
+      document.querySelectorAll('.lang-btn')[2].classList.add('active');
+    } else {
+      document.querySelectorAll('.lang-btn')[0].classList.add('active');
+    }
+  }
+
+  // Inline h3 spans — apply same show/hide based on body class
+  // Already handled via CSS .en / .th classes
+
+  // Active nav highlighting on scroll
+  const sections = document.querySelectorAll('section[id], div[id="storyline"]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(item => item.classList.remove('active'));
+        const activeLink = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

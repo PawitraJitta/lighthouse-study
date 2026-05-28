@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thailand Agri Intelligence · Module B</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --earth: #3D2B1F;
+    --earth-mid: #6B4226;
+    --earth-light: #F5EDE4;
+    --moss: #2D5A27;
+    --moss-mid: #4A8C42;
+    --moss-light: #EBF4E9;
+    --amber: #C8831A;
+    --amber-light: #FEF3DC;
+    --rust: #C0392B;
+    --rust-light: #FDEDEB;
+    --sky: #1B4F72;
+    --sky-light: #EAF2F8;
+    --gold: #D4AC0D;
+    --text: #1A1A1A;
+    --text-mid: #4A4A4A;
+    --text-muted: #7A7A7A;
+    --border: #E0D8D0;
+    --bg: #FAF7F4;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', 'Sarabun', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  /* HEADER */
+  .page-header {
+    background: var(--earth);
+    padding: 48px 64px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--moss-mid), var(--amber), var(--rust), var(--sky));
+  }
+
+  .page-header::after {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .header-tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 38px;
+    color: white;
+    line-height: 1.2;
+    max-width: 680px;
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 em {
+    color: #9EE0A3;
+    font-style: italic;
+  }
+
+  .page-header .subtitle {
+    color: rgba(255,255,255,0.55);
+    font-size: 15px;
+    max-width: 580px;
+    margin-bottom: 32px;
+  }
+
+  .header-modules {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .module-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .module-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* MAIN LAYOUT */
+  .main { max-width: 1100px; margin: 0 auto; padding: 0 48px 80px; }
+
+  /* CHAPTER HEADERS */
+  .chapter {
+    margin-top: 56px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chapter:last-child { border-bottom: none; }
+
+  .chapter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 28px;
+  }
+
+  .chapter-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+
+  .chapter-num.moss { background: var(--moss); color: white; }
+  .chapter-num.amber { background: var(--amber); color: white; }
+  .chapter-num.rust { background: var(--rust); color: white; }
+  .chapter-num.sky { background: var(--sky); color: white; }
+
+  .chapter-title h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--earth);
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+
+  .chapter-title p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+  }
+
+  /* INSIGHT CALLOUT */
+  .insight {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    border-left: 4px solid;
+  }
+
+  .insight.moss { background: var(--moss-light); border-color: var(--moss-mid); }
+  .insight.amber { background: var(--amber-light); border-color: var(--amber); }
+  .insight.rust { background: var(--rust-light); border-color: var(--rust); }
+  .insight.sky { background: var(--sky-light); border-color: var(--sky); }
+  .insight.earth { background: var(--earth-light); border-color: var(--earth-mid); }
+
+  .insight p { font-size: 13.5px; color: var(--text); line-height: 1.65; margin: 0; }
+
+  .insight .label {
+    font-size: 9.5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .insight.moss .label { color: var(--moss); }
+  .insight.amber .label { color: var(--amber); }
+  .insight.rust .label { color: var(--rust); }
+  .insight.sky .label { color: var(--sky); }
+  .insight.earth .label { color: var(--earth-mid); }
+
+  /* GRID CARDS */
+  .card-row {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .card-row.col2 { grid-template-columns: repeat(2, 1fr); }
+  .card-row.col3 { grid-template-columns: repeat(3, 1fr); }
+  .card-row.col4 { grid-template-columns: repeat(4, 1fr); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .card h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    color: var(--earth);
+  }
+
+  .card.moss-card { border-top: 3px solid var(--moss-mid); }
+  .card.amber-card { border-top: 3px solid var(--amber); }
+  .card.rust-card { border-top: 3px solid var(--rust); }
+  .card.sky-card { border-top: 3px solid var(--sky); }
+  .card.earth-card { border-top: 3px solid var(--earth-mid); }
+
+  .card.moss-card h4 { color: var(--moss); }
+  .card.amber-card h4 { color: var(--amber); }
+  .card.rust-card h4 { color: var(--rust); }
+  .card.sky-card h4 { color: var(--sky); }
+
+  .card p { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  .card ul { padding-left: 16px; }
+  .card li { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 5px; }
+
+  /* STAT BOX */
+  .stat-strip {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .stat-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    flex: 1;
+    min-width: 120px;
+    text-align: center;
+  }
+
+  .stat-item .val {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-item .lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.4;
+  }
+
+  .stat-item.moss .val { color: var(--moss-mid); }
+  .stat-item.amber .val { color: var(--amber); }
+  .stat-item.rust .val { color: var(--rust); }
+  .stat-item.sky .val { color: var(--sky); }
+
+  /* GROWTH STAGE VISUAL */
+  .stage-bar {
+    display: flex;
+    align-items: stretch;
+    gap: 3px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .stage-seg {
+    flex: 1;
+    padding: 12px 10px;
+    text-align: center;
+    position: relative;
+  }
+
+  .stage-seg .stage-name {
+    font-size: 10.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .stage-seg .stage-days {
+    font-size: 10px;
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+
+  .stage-seg .stage-actions {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .stage-seg .badge {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 8px;
+    margin: 2px 1px;
+  }
+
+  .seg-early { background: #EBF4E9; color: var(--moss); }
+  .seg-tiller { background: #D5EBD4; color: #235A1F; }
+  .seg-pi { background: #FEF3DC; color: #7A4E00; }
+  .seg-head { background: #FDEDEB; color: var(--rust); }
+  .seg-fill { background: #EAF2F8; color: var(--sky); }
+  .seg-ripe { background: var(--earth-light); color: var(--earth); }
+
+  .badge-h { background: #FDEDEB; color: var(--rust); }
+  .badge-f { background: #EBF4E9; color: var(--moss); }
+  .badge-i { background: #FEF3DC; color: #7A4E00; }
+  .badge-low { background: #F0FDF4; color: #166534; border: 1px solid #86EFAC; }
+  .badge-med { background: #FFFBEB; color: #92400E; border: 1px solid #FCD34D; }
+  .badge-high { background: #FEF2F2; color: #991B1B; border: 1px solid #FCA5A5; }
+
+  /* RESISTANCE WHEEL / GRID */
+  .moa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .moa-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+
+  .moa-card .moa-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .moa-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  .risk-high .moa-badge { background: var(--rust-light); color: var(--rust); }
+  .risk-med .moa-badge { background: var(--amber-light); color: var(--amber); }
+  .risk-low .moa-badge { background: var(--moss-light); color: var(--moss); }
+
+  .moa-card .moa-name { font-size: 12px; font-weight: 700; color: var(--earth); }
+  .moa-card .moa-class { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
+  .moa-card .moa-use { font-size: 11.5px; color: var(--text-mid); line-height: 1.5; }
+
+  .risk-pill {
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .risk-high .risk-pill { background: var(--rust-light); color: var(--rust); }
+  .risk-med .risk-pill { background: var(--amber-light); color: var(--amber); }
+  .risk-low .risk-pill { background: var(--moss-light); color: var(--moss); }
+
+  /* FARMER BEHAVIOR SPECTRUM */
+  .spectrum {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .spectrum-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .spectrum-bar {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #EBF4E9 0%, #FEF3DC 40%, #FDEDEB 70%, #C0392B 100%);
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .spectrum-markers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .spectrum-points {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .spectrum-point {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .spectrum-point .sp-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .spectrum-point .sp-pct {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .spectrum-point p { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
+
+  .sp-1 { background: var(--moss-light); }
+  .sp-1 .sp-label { color: var(--moss); }
+  .sp-1 .sp-pct { color: var(--moss); }
+
+  .sp-2 { background: #EEF8EE; }
+  .sp-2 .sp-label { color: #4A8C42; }
+  .sp-2 .sp-pct { color: #4A8C42; }
+
+  .sp-3 { background: var(--amber-light); }
+  .sp-3 .sp-label { color: var(--amber); }
+  .sp-3 .sp-pct { color: var(--amber); }
+
+  .sp-4 { background: var(--rust-light); }
+  .sp-4 .sp-label { color: var(--rust); }
+  .sp-4 .sp-pct { color: var(--rust); }
+
+  /* INNOVATION LADDER */
+  .ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 700px;
+    margin-bottom: 24px;
+  }
+
+  .rung {
+    display: flex;
+    gap: 16px;
+    position: relative;
+  }
+
+  .rung:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 46px;
+    width: 2px;
+    height: calc(100% - 8px);
+    background: var(--border);
+  }
+
+  .rung-dot {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+
+  .rung-body {
+    padding: 6px 0 28px;
+  }
+
+  .rung-meta {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .rung-body h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--earth);
+    margin-bottom: 5px;
+    font-family: 'DM Serif Display', serif;
+  }
+
+  .rung-body p { font-size: 13px; color: var(--text-mid); line-height: 1.6; margin-bottom: 6px; }
+
+  .rung-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin-top: 4px;
+  }
+
+  /* TABLE */
+  .tbl-wrap { overflow-x: auto; margin-bottom: 24px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+
+  th {
+    background: var(--earth);
+    color: white;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-mid);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tr:nth-child(even) td { background: #FAFAF8; }
+  tr:hover td { background: var(--moss-light); }
+
+  td.good { color: var(--moss); font-weight: 700; }
+  td.warn { color: var(--amber); font-weight: 700; }
+  td.bad { color: var(--rust); font-weight: 700; }
+
+  /* DATA POINT */
+  .data-pt {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .data-pt:last-child { border-bottom: none; }
+
+  .dp-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .data-pt h5 { font-size: 13.5px; font-weight: 700; color: var(--earth); margin-bottom: 3px; }
+  .data-pt p { font-size: 13px; color: var(--text-mid); line-height: 1.55; }
+
+  /* CODE / MONO */
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    background: var(--earth-light);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--earth-mid);
+  }
+
+  /* SYNGENTA ANGLE BOX */
+  .syn-angle {
+    background: linear-gradient(135deg, #1A2744 0%, #2D5A27 100%);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 20px;
+  }
+
+  .syn-angle .syn-label {
+    font-size: 9px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #9EE0A3;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .syn-angle p {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.65;
+    margin-bottom: 8px;
+  }
+
+  .syn-angle p:last-child { margin-bottom: 0; }
+
+  .syn-angle strong { color: #9EE0A3; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 4px 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .page-header { padding: 36px 24px 32px; }
+    .main { padding: 0 24px 60px; }
+    .card-row.col2, .card-row.col3, .card-row.col4 { grid-template-columns: 1fr; }
+    .spectrum-points { grid-template-columns: repeat(2, 1fr); }
+    .page-header h1 { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="header-tag">Syngenta Thailand · Lighthouse Intelligence · Module B</div>
+  <h1>Beyond Digital:<br><em>The Agronomic Mind of the Thai Farmer</em></h1>
+  <p class="subtitle">Deep research on crop rotation perception, crop protection decision-making across growth stages, pesticide resistance awareness, and innovation adoption barriers — for the global offsite.</p>
+  <div class="header-modules">
+    <div class="module-chip"><span class="dot" style="background:#4A8C42"></span> Crop Rotation</div>
+    <div class="module-chip"><span class="dot" style="background:#C8831A"></span> CP Across Growth Stages</div>
+    <div class="module-chip"><span class="dot" style="background:#C0392B"></span> Resistance &amp; MOA Rotation</div>
+    <div class="module-chip"><span class="dot" style="background:#1B4F72"></span> Innovation Adoption</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- ===== CHAPTER 1: CROP ROTATION ===== -->
+<div class="chapter" id="c1">
+  <div class="chapter-header">
+    <div class="chapter-num moss">1</div>
+    <div class="chapter-title">
+      <h2>Crop Rotation: What Thai Farmers Actually Do (vs. What Science Recommends)</h2>
+      <p>Attitudes, practices, and the structural constraints that prevent change</p>
+    </div>
+  </div>
+
+  <div class="insight rust">
+    <div class="label">Critical Framing</div>
+    <p><strong>"Crop rotation" means two completely different things in Thailand.</strong> For Karen communities in the North, it is a centuries-old cultural practice recognized by the Ministry of Culture as national heritage. For the rice farmer in the Central Plains or Isan, it is an agronomic recommendation they are aware of but structurally unable to follow. Understanding which world the grower lives in determines your entire strategy.</p>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item rust"><div class="val">~10M</div><div class="lbl">ha rice area — monoculture in most regions</div></div>
+    <div class="stat-item amber"><div class="val">2–3</div><div class="lbl">rice crops/yr in irrigated Central Plains</div></div>
+    <div class="stat-item sky"><div class="val">1</div><div class="lbl">rice crop/yr in rainfed Isan — fallow rest of year</div></div>
+    <div class="stat-item moss"><div class="val">3,000+</div><div class="lbl">farmers trained in sustainable rotation (PepsiCo/develoPPP North TH)</div></div>
+  </div>
+
+  <div class="card-row col2">
+    <div class="card moss-card">
+      <h4>Who Actually Rotates — and Why</h4>
+      <ul>
+        <li><strong>North region farmers</strong> rotate naturally — jasmine rice + longan/lychee/garlic. Market-driven, not agronomy-driven.</li>
+        <li><strong>Young Smart Farmers</strong> in horticulture rotate to manage soil fatigue and disease break cycles (especially in vegetables). Income-optimization logic.</li>
+        <li><strong>Durian growers (South)</strong> can't rotate — investment cycles of 5-7 years. They manage within-crop via intensive CP programs instead.</li>
+        <li><strong>Commercial achievers (30+ rai, Central)</strong> rotate rice + corn/soybean in off-season where irrigation allows — driven by income maximization, not soil health ideology.</li>
+        <li><strong>Supported programs:</strong> 3,000+ North TH farmers trained in sustainable rotation under PepsiCo/develoPPP — income up 50%, GHG down 27% (2022–2024).</li>
+      </ul>
+    </div>
+    <div class="card rust-card">
+      <h4>Who Cannot Rotate — Structural Barriers</h4>
+      <ul>
+        <li><strong>Isan rice farmers (largest segment):</strong> Sandy infertile soil, rainfed only, 1 crop/year with 6-month fallow. Rotation is land-locked — alternative crops fail in poor soil without irrigation.</li>
+        <li><strong>Credit dependency:</strong> Retailers extend credit specifically for rice inputs. Credit for a different crop means finding a new credit source — extremely high friction.</li>
+        <li><strong>Market access:</strong> Local infrastructure (drying, storage, buyers) is built for rice. Planting corn in Isan means hoping a feed buyer shows up.</li>
+        <li><strong>Knowledge gap:</strong> A farmer who has grown one crop for 30 years has zero confidence in the pest, fertility, and timing logic of a different crop.</li>
+        <li><strong>Government policy:</strong> Rice subsidy programs historically reward rice production specifically — rotation has no subsidy equivalent.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:8px 0 14px;">How Thai Farmers Perceive Crop Rotation: The Awareness-Action Gap</h3>
+
+  <div class="spectrum">
+    <div class="spectrum-title">Farmer Rotation Readiness Spectrum (estimated, Central + Isan rice base)</div>
+    <div class="spectrum-bar"></div>
+    <div class="spectrum-markers">
+      <span>Actively rotating</span>
+      <span>Willing, if supported</span>
+      <span>Aware but not acting</span>
+      <span>No interest / not feasible</span>
+    </div>
+    <div class="spectrum-points">
+      <div class="spectrum-point sp-1">
+        <div class="sp-label">Actively rotating</div>
+        <div class="sp-pct">~15%</div>
+        <p>Mostly North, Young Smart Farmers, commercial horticulture. Already doing it.</p>
+      </div>
+      <div class="spectrum-point sp-2">
+        <div class="sp-label">Willing if supported</div>
+        <div class="sp-pct">~25%</div>
+        <p>Middle commercial farmers who would rotate if given credit, market linkage, and knowledge.</p>
+      </div>
+      <div class="spectrum-point sp-3">
+        <div class="sp-label">Aware, not acting</div>
+        <div class="sp-pct">~30%</div>
+        <p>Have heard about rotation benefits. No pathway to change. Stuck in existing input-credit system.</p>
+      </div>
+      <div class="spectrum-point sp-4">
+        <div class="sp-label">Not feasible</div>
+        <div class="sp-pct">~30%</div>
+        <p>Mainly Isan subsistence farmers. Soil, water, and market constraints make rotation structurally impossible without major external intervention.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight amber">
+    <div class="label">Research Finding: Soybean Rotation in Northeast Thailand (2025)</div>
+    <p>A 2025 study in <em>Plants</em> journal evaluated the newly developed 'Morkhor 60' soybean variety specifically for integrated rotation systems in post-sugarcane and post-rice environments across 13 sites in Northeast Thailand. The variety showed broad adaptability across sandy loam to clay soils — meaning agronomic solutions for Isan rotation <strong>exist</strong>. The barrier is not science. It is infrastructure, credit, and market access. This is a commercial problem, not an agronomy problem.</p>
+  </div>
+
+  <div class="syn-angle">
+    <div class="syn-label">Syngenta Lighthouse Angle</div>
+    <p>The 15% who actively rotate are disproportionately the Young Smart Farmers, the Agri-Entrepreneurs, and the commercial achievers — exactly the grower segments who are already digital-adjacent. <strong>Crop rotation programs are not a mass-market play in Thailand right now. They are a high-value grower engagement play.</strong></p>
+    <p>The rotation insight for the Lighthouse is not "how do we get all Thai farmers to rotate" — it is "how do we help our most commercially valuable growers build season-to-season programs that optimize CP spend across a rotation cycle, not just per-crop?" A rice-corn-vegetable rotation calendar that maps Syngenta products to every stage of every crop in the sequence is more valuable than a single-crop product menu.</p>
+  </div>
+</div>
+
+<!-- ===== CHAPTER 2: CP ACROSS GROWTH STAGES ===== -->
+<div class="chapter" id="c2">
+  <div class="chapter-header">
+    <div class="chapter-num amber">2</div>
+    <div class="chapter-title">
+      <h2>Crop Protection Across Growth Stages: The Calendar vs. IPM Divide</h2>
+      <p>How Thai farmers actually decide when and what to spray — and where the commercial and agronomic breakpoints are</p>
+    </div>
+  </div>
+
+  <div class="insight rust">
+    <div class="label">The Core Problem</div>
+    <p><strong>Thai rice farmers spray by calendar, not by pest pressure.</strong> Research from FAO and IRRI shows that across Southeast Asia, the dominant pattern is prophylactic spraying — applying insecticides at fixed crop stages (days after transplanting) regardless of whether pest populations have reached economic threshold levels. This behavior is deeply rational from a risk-management perspective: the grower cannot afford to monitor scientifically, so they insure against loss by spraying on schedule. The result is systematic overuse, especially in early growth stages where spraying is actually counterproductive.</p>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:0 0 14px;">Rice Growth Stages: What Farmers Do vs. What IPM Recommends</h3>
+
+  <!-- GROWTH STAGE BAR -->
+  <div class="stage-bar">
+    <div class="stage-seg seg-early">
+      <div class="stage-name">Seedling</div>
+      <div class="stage-days">DAT 0–20</div>
+      <div class="stage-actions">
+        <span class="badge badge-h">H</span>
+        <span class="badge badge-i">Seedcare</span>
+      </div>
+    </div>
+    <div class="stage-seg seg-tiller">
+      <div class="stage-name">Tillering</div>
+      <div class="stage-days">DAT 21–55</div>
+      <div class="stage-actions">
+        <span class="badge badge-h">H × 2</span>
+        <span class="badge badge-i">I ×1–2</span>
+      </div>
+    </div>
+    <div class="stage-seg seg-pi">
+      <div class="stage-name">PI to Booting</div>
+      <div class="stage-days">DAT 56–75</div>
+      <div class="stage-actions">
+        <span class="badge badge-f">F ×1</span>
+        <span class="badge badge-i">I ×1</span>
+      </div>
+    </div>
+    <div class="stage-seg seg-head">
+      <div class="stage-name">Heading</div>
+      <div class="stage-days">DAT 76–85</div>
+      <div class="stage-actions">
+        <span class="badge badge-f">F ×1–2</span>
+        <span class="badge badge-i">I ×1</span>
+      </div>
+    </div>
+    <div class="stage-seg seg-fill">
+      <div class="stage-name">Grain Fill</div>
+      <div class="stage-days">DAT 86–105</div>
+      <div class="stage-actions">
+        <span class="badge badge-i">I ×1</span>
+      </div>
+    </div>
+    <div class="stage-seg seg-ripe">
+      <div class="stage-name">Ripening</div>
+      <div class="stage-days">DAT 106–120</div>
+      <div class="stage-actions">
+        <span class="badge" style="background:var(--earth-light);color:var(--earth);">PHI</span>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:11px;color:var(--text-muted);margin-bottom:20px;">H = Herbicide &nbsp;·&nbsp; F = Fungicide &nbsp;·&nbsp; I = Insecticide &nbsp;·&nbsp; DAT = Days After Transplanting &nbsp;·&nbsp; PHI = Pre-Harvest Interval</p>
+
+  <div class="card-row col3">
+    <div class="card rust-card">
+      <h4>🔴 Early Stage Problem (DAT 0–40)</h4>
+      <p><strong>What farmers do:</strong> Apply 1–2 insecticide sprays to prevent leaf-folder and early insect pressure.</p>
+      <p><strong>What research shows:</strong> IRRI studies across 5,000+ farms in SE Asia show <em>no significant yield correlation</em> with early-stage insecticide sprays. Worse: early sprays kill natural enemies (spiders, predatory bugs), creating conditions for Brown Planthopper (BPH) resurgence later.</p>
+      <p><strong>The trap:</strong> Agrochemical suppliers often promote early-stage sprays based on crop stage calendars, not pest presence. Farmers follow label and rep recommendations.</p>
+    </div>
+    <div class="card amber-card">
+      <h4>🟡 Critical Window: PI to Heading (DAT 56–85)</h4>
+      <p><strong>What farmers do:</strong> 1–2 fungicide applications for rice blast (Pyricularia oryzae). 1 insecticide for neck blast or BPH at heading.</p>
+      <p><strong>What research shows:</strong> This IS the economically justified window. Neck blast at heading can cause 20–40% yield loss. Armure (trifloxystrobin + tebuconazole) specifically targets this window. <strong>This is Syngenta's strongest CP justification.</strong></p>
+      <p><strong>Grower awareness:</strong> Moderate-to-high. Farmers who have experienced blast know it. Farmers who haven't often skip or under-dose fungicide.</p>
+    </div>
+    <div class="card moss-card">
+      <h4>🟢 Grain Fill: Drone-Led Opportunity</h4>
+      <p><strong>What farmers do:</strong> 1 late-stage insecticide for BPH, sometimes via drone.</p>
+      <p><strong>What research shows:</strong> Late-stage BPH can cause hopper burn — catastrophic yield loss. 75% of Thai insecticide spray is now via drone at this stage. Drone operators are the gatekeepers of the grain-fill spray decision.</p>
+      <p><strong>The opportunity:</strong> The drone operator who visits 50 farms/week and recommends what to spray at grain-fill is Syngenta's highest-leverage agronomic touchpoint. They should know the IRAC group of what they're applying and why.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:16px 0 14px;">Durian: Growth Stage CP is a Completely Different Logic</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Growth Stage</th><th>Duration</th><th>Key Threats</th><th>CP Priority</th><th>Syngenta Products</th><th>Farmer Behavior</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Flowering (Anthesis)</strong></td>
+          <td>Jan–Feb</td>
+          <td>Thrips damage to flowers; flower abortion</td>
+          <td class="bad">CRITICAL</td>
+          <td>Simodis (thrips), Solvigo</td>
+          <td>Aware — but timing precision varies widely. Some spray too early.</td>
+        </tr>
+        <tr>
+          <td><strong>Fruitlet Development</strong></td>
+          <td>Mar–May</td>
+          <td>Phytophthora fruit rot, thrips, stem borers</td>
+          <td class="bad">VERY HIGH</td>
+          <td>Folio Gold (Phytophthora), Simodis, Phytab</td>
+          <td>Intensive spraying — farmers fear export rejection. Often over-apply.</td>
+        </tr>
+        <tr>
+          <td><strong>Fruit Maturation</strong></td>
+          <td>Jun–Aug</td>
+          <td>Phytophthora, post-harvest pathogens</td>
+          <td class="warn">HIGH</td>
+          <td>Folio Gold, Ortiva, Score</td>
+          <td>Awareness of MRL/residue limits growing due to China export pressure.</td>
+        </tr>
+        <tr>
+          <td><strong>Post-Harvest Preparation</strong></td>
+          <td>Sep–Dec</td>
+          <td>Canker, trunk diseases; tree health recovery</td>
+          <td class="warn">MODERATE</td>
+          <td>Amistar, trunk-applied products</td>
+          <td>Often neglected — growers rest after harvest. Low uptake of post-harvest CP.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="insight sky">
+    <div class="label">Market Research Signal</div>
+    <p>Thailand's crop protection market reached <strong>USD 344M–890M in 2024</strong> (range across estimates, reflecting informal economy uncertainty) with <strong>54% still via foliar spray</strong> from knapsack — not drone. The behavioral default is spray-by-feel, not spray-by-data. The CP market is projected to grow at 5.76%–7% CAGR to 2031–2033, primarily driven by <strong>pest outbreak pressure intensified by climate variability</strong> and the durian export boom tightening MRL compliance requirements. Both are tailwinds that reward product quality and timed application — exactly Syngenta's positioning.</p>
+  </div>
+
+  <div class="syn-angle">
+    <div class="syn-label">Syngenta Lighthouse Angle</div>
+    <p>The most powerful agronomic message Syngenta can send Thai farmers is not "spray more" — it is <strong>"spray at the right time."</strong> A LINE-delivered crop stage alert that says "your rice is at heading stage — this is the 5-day window to apply your fungicide" is more commercially valuable than a promotional banner, and it is not possible without digital infrastructure.</p>
+    <p>For durian: <strong>Simodis adoption depends entirely on timing precision at flowering.</strong> A grower who applies 3 days too early or too late loses the intervention window. The demo plots that exceeded target (362 H1 2026) succeeded because there was a field rep or agronomist communicating timing. Scaling that requires a digital channel. The agronomic knowledge is the product — the chemistry is the delivery mechanism.</p>
+  </div>
+</div>
+
+<!-- ===== CHAPTER 3: RESISTANCE MANAGEMENT ===== -->
+<div class="chapter" id="c3">
+  <div class="chapter-header">
+    <div class="chapter-num rust">3</div>
+    <div class="chapter-title">
+      <h2>Pesticide Resistance & MOA Rotation: The Knowledge Gap Nobody Talks About</h2>
+      <p>What Thai farmers know about resistance, what they don't — and why this is Syngenta's strategic moat</p>
+    </div>
+  </div>
+
+  <div class="insight rust">
+    <div class="label">The Uncomfortable Truth</div>
+    <p><strong>Most Thai farmers have never heard the term "Mode of Action."</strong> They buy by brand name, not FRAC/IRAC group. They switch products when one "stops working" — which is resistance — but they often switch to a different brand within the same MOA class, achieving nothing. The pesticide treadmill is real: overuse → resistance → higher doses → more resistance → product failure. Thailand is on this treadmill for several key actives.</p>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item rust"><div class="val">76%</div><div class="lbl">Thai farmers recognize negative environmental effects of pesticides — yet continue applying</div></div>
+    <div class="stat-item amber"><div class="val">83%</div><div class="lbl">still agreed to apply conventional methods to prevent loss</div></div>
+    <div class="stat-item sky"><div class="val">0</div><div class="lbl">formal MOA group labeling required on Thai agri pesticide packaging (unlike EU)</div></div>
+    <div class="stat-item moss"><div class="val">&lt;5%</div><div class="lbl">estimated % of smallholder Thai farmers who can name an IRAC or FRAC group</div></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:0 0 14px;">Key Resistance Situations in Thai Agriculture</h3>
+
+  <div class="moa-grid">
+    <div class="moa-card risk-high">
+      <div class="moa-header">
+        <div class="moa-badge">4A</div>
+        <div><div class="moa-name">Neonicotinoids</div><div class="moa-class">Imidacloprid, Thiamethoxam</div></div>
+        <span class="risk-pill">High Risk</span>
+      </div>
+      <div class="moa-use">Brown Planthopper (BPH) resistance to neonicotinoids is well-documented across Southeast Asia including Thailand since 2010s. Cross-resistance between neonicotinoids means switching brands achieves nothing. Farmers using imidacloprid for 10+ years are likely spraying ineffective product.</div>
+    </div>
+    <div class="moa-card risk-high">
+      <div class="moa-header">
+        <div class="moa-badge">3</div>
+        <div><div class="moa-name">DMI Fungicides</div><div class="moa-class">Triazoles, Tebuconazole</div></div>
+        <span class="risk-pill">High Risk</span>
+      </div>
+      <div class="moa-use">Single-site MOA with high resistance risk. Rice blast (Pyricularia oryzae) populations with reduced sensitivity to triazoles have been documented in Asia. Armure's combination (trifloxystrobin FRAC 11 + tebuconazole FRAC 3) specifically addresses this by pairing two MOAs — a Syngenta competitive advantage that most farmers cannot articulate.</div>
+    </div>
+    <div class="moa-card risk-high">
+      <div class="moa-header">
+        <div class="moa-badge">28</div>
+        <div><div class="moa-name">Diamides</div><div class="moa-class">Chlorantraniliprole (Virtako/Rynaxypyr)</div></div>
+        <span class="risk-pill">Medium→High</span>
+      </div>
+      <div class="moa-use">Diamide resistance in rice leaffolder and stem borer is emerging in Vietnam and China, with risk spreading to Thailand via migrating insect populations. Virtako (chlorantraniliprole + thiamethoxam) is a premium product — resistance would be commercially damaging. MOA rotation is critical to preserve efficacy.</div>
+    </div>
+    <div class="moa-card risk-med">
+      <div class="moa-header">
+        <div class="moa-badge">11</div>
+        <div><div class="moa-name">QoI Fungicides</div><div class="moa-class">Strobilurins, Trifloxystrobin</div></div>
+        <span class="risk-pill">Medium Risk</span>
+      </div>
+      <div class="moa-use">Strobilurin resistance exists but is managed when used in combination products (as in Armure). Solo strobilurin use without rotation partner is a resistance risk. Bio products (Esbion) can serve as lower-risk alternates in certain cycles.</div>
+    </div>
+    <div class="moa-card risk-low">
+      <div class="moa-header">
+        <div class="moa-badge">—</div>
+        <div><div class="moa-name">Multi-Site Actives</div><div class="moa-class">Mancozeb, Chlorothalonil</div></div>
+        <span class="risk-pill">Low Risk</span>
+      </div>
+      <div class="moa-use">Generic multi-site fungicides have very low resistance risk — they are being displaced by branded single-site actives, but serve as valuable rotation partners. Farmers abandon these as "old" products without understanding the resistance management value they provide.</div>
+    </div>
+    <div class="moa-card risk-low">
+      <div class="moa-header">
+        <div class="moa-badge">Bio</div>
+        <div><div class="moa-name">Biological Controls</div><div class="moa-class">Esbion, Bio range</div></div>
+        <span class="risk-pill">No Resistance</span>
+      </div>
+      <div class="moa-use">Biological products inherently carry no conventional resistance risk. Positioning bio products (Esbion, MC Set) not just as "eco-friendly" but as <em>resistance breaks</em> between synthetic applications is an underused commercial messaging angle in Thailand.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:16px 0 14px;">The Farmer Decision Process: How Product Switching Actually Happens</h3>
+
+  <div class="ladder">
+    <div class="rung">
+      <div class="rung-dot" style="background:#FEF3DC;">⚙️</div>
+      <div class="rung-body">
+        <div class="rung-meta">Step 1 — The perceived failure</div>
+        <h4>Product "stops working"</h4>
+        <p>Farmer applies same product for 2–3 seasons. Disease or pest pressure breaks through. Farmer concludes "the product is weak" or "the pest changed." They are experiencing resistance but have no framework to understand it.</p>
+        <span class="rung-tag" style="background:var(--amber-light);color:var(--amber);">Knowledge Gap</span>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-dot" style="background:#FDEDEB;">🛒</div>
+      <div class="rung-body">
+        <div class="rung-meta">Step 2 — The switch (often wrong)</div>
+        <h4>Retailer recommends alternative brand</h4>
+        <p>Farmer asks retailer: "What else can I use for blast?" Retailer recommends different brand — which often contains the <em>same FRAC group active</em> under a different name. Resistance is not broken. Farmer pays more for no improvement. Retailer may not know either.</p>
+        <span class="rung-tag" style="background:var(--rust-light);color:var(--rust);">Resistance Maintained</span>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-dot" style="background:#EBF4E9;">💡</div>
+      <div class="rung-body">
+        <div class="rung-meta">Step 3 — What should happen</div>
+        <h4>MOA-aware rotation with trusted advisor input</h4>
+        <p>The correct response: identify FRAC/IRAC group of the failing product and explicitly switch to a different group. This is routine in European and North American precision agriculture. In Thailand, it requires agronomic support that currently exists only through Syngenta's field team and agrochemical company reps — not systematically at retail level.</p>
+        <span class="rung-tag" style="background:var(--moss-light);color:var(--moss);">Resistance Broken</span>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-dot" style="background:var(--sky-light);">📱</div>
+      <div class="rung-body">
+        <div class="rung-meta">Step 4 — The digital opportunity</div>
+        <h4>Resistance intelligence delivered at the point of spray decision</h4>
+        <p>A drone operator who receives a LINE message saying "You've applied chlorantraniliprole (IRAC 28) for 2 consecutive seasons. This season, switch to Plenum (IRAC 9C) before heading to protect your diamide window" is receiving agronomic intelligence no competitor currently provides at scale.</p>
+        <span class="rung-tag" style="background:var(--sky-light);color:var(--sky);">Lighthouse Opportunity</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Pest / Disease</th><th>At-Risk Active</th><th>IRAC/FRAC Group</th><th>Resistance Status TH</th><th>Recommended Rotation Partner</th><th>Syngenta Product</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Brown Planthopper (BPH)</strong></td>
+          <td>Imidacloprid, Thiamethoxam</td>
+          <td>IRAC 4A</td>
+          <td class="bad">Confirmed resistance</td>
+          <td>IRAC 6 (spinosad), IRAC 9 (pymetrozine/Plenum)</td>
+          <td><strong>Plenum</strong> (IRAC 9C)</td>
+        </tr>
+        <tr>
+          <td><strong>Rice Blast (neck &amp; leaf)</strong></td>
+          <td>Solo triazoles</td>
+          <td>FRAC 3</td>
+          <td class="warn">Emerging risk</td>
+          <td>FRAC 11 (strobilurin) in combination</td>
+          <td><strong>Armure</strong> (FRAC 3 + 11 combo)</td>
+        </tr>
+        <tr>
+          <td><strong>Rice Leaffolder / Stem Borer</strong></td>
+          <td>Chlorantraniliprole alone</td>
+          <td>IRAC 28</td>
+          <td class="warn">Regional risk (migrating)</td>
+          <td>IRAC 28 in mixture + rotate with IRAC 5</td>
+          <td><strong>Virtako</strong> (IRAC 28 + 4A combo)</td>
+        </tr>
+        <tr>
+          <td><strong>Durian Thrips</strong></td>
+          <td>Over-sprayed pyrethroids</td>
+          <td>IRAC 3A</td>
+          <td class="warn">Moderate risk</td>
+          <td>IRAC 22 or 28 alternation</td>
+          <td><strong>Simodis</strong> (IRAC 22B — spirotetramat)</td>
+        </tr>
+        <tr>
+          <td><strong>Phytophthora (durian)</strong></td>
+          <td>Mefenoxam alone</td>
+          <td>FRAC 4</td>
+          <td class="bad">High resistance globally</td>
+          <td>FRAC 33 (phosphonate) combination</td>
+          <td><strong>Folio Gold</strong> (FRAC 4 + 33 combo)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="syn-angle">
+    <div class="syn-label">Syngenta Lighthouse Angle</div>
+    <p>Syngenta's combination products — Armure (FRAC 3+11), Folio Gold (FRAC 4+33), Virtako (IRAC 28+4A) — are <strong>inherently resistance management tools</strong>. This is a product story that most Thai farmers have never heard told this way. They know Armure as "the reliable fungicide." They do not know it as "the product that protects your blast window for the next 10 years by using two MOAs simultaneously."</p>
+    <p><strong>The message that unlocks premiums:</strong> "The cheaper single-MOA generic works today. We can prove it's building resistance in your field. Armure costs more — but it's the only product that protects your ability to control blast next season and the season after. That is what you're paying for."</p>
+  </div>
+</div>
+
+<!-- ===== CHAPTER 4: INNOVATION ADOPTION ===== -->
+<div class="chapter" id="c4">
+  <div class="chapter-header">
+    <div class="chapter-num sky">4</div>
+    <div class="chapter-title">
+      <h2>Innovation Adoption: What Thai Farmers Actually Accept — and What They Don't</h2>
+      <p>Research-backed model of adoption barriers, motivators, and the path from awareness to commercial change</p>
+    </div>
+  </div>
+
+  <div class="insight sky">
+    <div class="label">Research Baseline</div>
+    <p>A 2024 peer-reviewed study (Suvittawat, <em>Agriculture</em> MDPI) of <strong>410 Thai farmers with drone usage experience</strong> found that adoption is driven not by feature lists but by <strong>perceived value and product quality expectations</strong>. A 2025 TAM-based study on mobile agri-tech in Eastern Thailand found that <strong>Perceived Usefulness (PU) and Perceived Ease of Use (PEOU)</strong> predict behavioral intention to adopt. The practical implication: Thai farmers don't adopt technology because it exists — they adopt it when they can see how it makes their specific economic situation better, immediately and tangibly.</p>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-item moss"><div class="val">10,000+</div><div class="lbl">registered agri drones in Thailand (2023) — fastest growing input channel</div></div>
+    <div class="stat-item amber"><div class="val">30%</div><div class="lbl">of arable land now covered by drone services</div></div>
+    <div class="stat-item sky"><div class="val">80%</div><div class="lbl">of medium/large farms expected to use digital advisory platform by 2025</div></div>
+    <div class="stat-item rust"><div class="val">~20%</div><div class="lbl">estimated overall farm efficiency boost from smart soil sensors and drones</div></div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:0 0 14px;">The Innovation Adoption Ladder: Where Different Thai Farmer Segments Are</h3>
+
+  <div class="card-row col4" style="grid-template-columns:repeat(4,1fr)">
+    <div class="card earth-card" style="border-top:3px solid var(--earth-mid)">
+      <h4 style="color:var(--earth-mid);">Stage 1: Awareness</h4>
+      <p><strong>Most of rural Thailand</strong></p>
+      <p>Knows drones exist. Has seen them. Has heard of LINE for agri. Has not experienced yield or income improvement directly from technology.</p>
+      <p><em>Syngenta role:</em> Demo farms. Field events. Video content.</p>
+    </div>
+    <div class="card amber-card">
+      <h4>Stage 2: Trial</h4>
+      <p><strong>~40% of rice farmers in Central</strong></p>
+      <p>Has used drone spray service once or twice. Has followed a LINE account. Has scanned a QR code at an event. Low commitment, reversible.</p>
+      <p><em>Syngenta role:</em> Coupon redemption (ช่วยชาวนาไทย+). Drone operator loyalty program.</p>
+    </div>
+    <div class="card moss-card">
+      <h4>Stage 3: Adoption</h4>
+      <p><strong>Young Smart Farmers, Agri-Entrepreneurs</strong></p>
+      <p>Uses drone spray every season. Follows multiple LINE OA accounts for crop advice. Actively seeks out new CP products. Calculates ROI on inputs.</p>
+      <p><em>Syngenta role:</em> Product bundle programs. Agronomic advisory content. Data partner.</p>
+    </div>
+    <div class="card sky-card">
+      <h4>Stage 4: Advocacy</h4>
+      <p><strong>&lt;5% currently</strong></p>
+      <p>Runs demo farm for others. Creates YouTube/TikTok agri content. Operates drone service business. Functions as Syngenta's most powerful channel.</p>
+      <p><em>Syngenta role:</em> Co-creator partnerships. Hero VDO campaigns. Regional ambassador programs.</p>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:20px 0 14px;">What Drives Adoption vs. What Blocks It — By Segment</h3>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr><th>Innovation</th><th>Who Adopts Fastest</th><th>Adoption Drivers</th><th>Adoption Blockers</th><th>Syngenta Leverage Point</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Drone spray services</strong></td>
+          <td>Middle commercial farmer (40-60 yrs), Agri-entrepreneur</td>
+          <td>Labor shortage, lower cost vs. hired labor, social proof from neighbor</td>
+          <td>Initial cost, trust in operator quality, concern over missed spots</td>
+          <td class="good">Drone-compatible formulation + operator training program</td>
+        </tr>
+        <tr>
+          <td><strong>LINE OA / digital agri advisory</strong></td>
+          <td>Young Smart Farmer, active middle farmer</td>
+          <td>Already uses LINE daily. Free. Relevant content = stays.</td>
+          <td>Irrelevant content, Thai-language mismatch, too promotional</td>
+          <td class="good">Pest alert + growth stage timing = highly relevant content</td>
+        </tr>
+        <tr>
+          <td><strong>Premium branded CP products</strong></td>
+          <td>Commercial achiever (ROI-calculator segment)</td>
+          <td>Demonstrable yield protection, MRL compliance pressure (durian export)</td>
+          <td>Price premium without visible outcome proof. Generic "works good enough."</td>
+          <td class="good">Demo plots + side-by-side trials + quantified yield protection data</td>
+        </tr>
+        <tr>
+          <td><strong>Seedcare (Fortenza Duo)</strong></td>
+          <td>Early-stage adopters with irrigated double-crop</td>
+          <td>Labour saving at sowing; insurance mindset for expensive seed</td>
+          <td>Cannot see seedcare benefit directly — trust is required, not proof</td>
+          <td class="warn">Needs field team testimonial + visible comparison plots</td>
+        </tr>
+        <tr>
+          <td><strong>Bio products (Esbion, MC Set)</strong></td>
+          <td>Young Smart Farmers, export-certified farmers</td>
+          <td>MRL compliance, "clean" brand positioning for premium buyers</td>
+          <td>Perceived as "weak" vs synthetics. Immediate efficacy harder to demonstrate.</td>
+          <td class="warn">Position as resistance management break, not "eco" alternative</td>
+        </tr>
+        <tr>
+          <td><strong>Farm management apps / IoT</strong></td>
+          <td>Young Smart Farmers, large commercial farms</td>
+          <td>Cost efficiency tracking, credit documentation, yield optimization</td>
+          <td>Thai language interfaces missing. Complexity exceeds benefit for small farms.</td>
+          <td class="bad">Not Syngenta's direct play — partner with Ricult / NECTEC instead</td>
+        </tr>
+        <tr>
+          <td><strong>Seasonal bundle programs</strong></td>
+          <td>Middle commercial farmers with stable credit access</td>
+          <td>Price certainty, simplified buying, fewer retailer visits</td>
+          <td>Retailer resistance (bypasses their role). Credit system disruption.</td>
+          <td class="warn">Design must include retailer benefit, not exclude them</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:15px;font-weight:700;color:var(--earth);margin:20px 0 14px;">The Language of Innovation: How to Frame Change for Thai Farmers</h3>
+
+  <div class="card-row col2">
+    <div class="card rust-card">
+      <h4>❌ Language That Fails</h4>
+      <ul>
+        <li><strong>"Digital transformation"</strong> — means nothing to a rice farmer</li>
+        <li><strong>"AI-powered advisory"</strong> — abstract and intimidating</li>
+        <li><strong>"Precision agriculture"</strong> — sounds expensive and complicated</li>
+        <li><strong>"Sustainable farming"</strong> — perceived as cost without commercial benefit</li>
+        <li><strong>"Mode of Action rotation"</strong> — technical jargon, zero resonance</li>
+        <li><strong>"Data-driven decision making"</strong> — no farmer connects this to income</li>
+      </ul>
+    </div>
+    <div class="card moss-card">
+      <h4>✓ Language That Works</h4>
+      <ul>
+        <li><strong>"รู้ก่อน ใช้ถูก ได้มากกว่า"</strong> — Know first, use right, get more</li>
+        <li><strong>"เพื่อนแนะนำ"</strong> — A friend recommended it (social proof)</li>
+        <li><strong>"ลดต้นทุน ได้ผลเท่าเดิม"</strong> — Lower cost, same yield</li>
+        <li><strong>"โดรนพ่นได้ ราคาไม่แพง"</strong> — Drone-compatible, not expensive</li>
+        <li><strong>"ยาชนิดนี้เพลี้ยยังไม่ดื้อ"</strong> — This product BPH hasn't resisted yet</li>
+        <li><strong>"ลูกค้าจีนรับ ส่งออกได้"</strong> — Chinese buyers accept it, exportable</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card-row col3">
+    <div class="card sky-card">
+      <h4>Government-Backed Tailwinds to Ride</h4>
+      <ul>
+        <li>DEPA: 15,000+ low-interest loans for IoT/drone (2024)</li>
+        <li>BAAC: digital credit integration for agri inputs</li>
+        <li>Young Smart Farmer program (2014–ongoing)</li>
+        <li>Ministry of Agriculture MRL enforcement tightening</li>
+        <li>Krungsri Bank + DEPA partnership for smart farming loans</li>
+        <li>Land Development Dept. Volunteer Soil Doctors program</li>
+      </ul>
+    </div>
+    <div class="card amber-card">
+      <h4>The "Pesticide Treadmill" Exit Opportunity</h4>
+      <p>Research confirms: farmers who reduce early-stage prophylactic sprays and switch to IPM-aligned timing achieve <strong>2–10% higher yields</strong> with <strong>1.5 fewer applications per season</strong>. This is not a cost-reduction play — it is a yield improvement play. For Syngenta, the commercial translation is: fewer applications of the right product at the right time produce better outcomes than more applications of any product at any time.</p>
+      <p>The grower who uses 2 targeted Armure applications at critical windows beats the one using 4 generic sprays on a calendar.</p>
+    </div>
+    <div class="card moss-card">
+      <h4>The Durian MRL Effect: Premium Market Forcing Function</h4>
+      <p>China's tightening MRL (Maximum Residue Limits) enforcement on durian imports is becoming the strongest single driver of innovation adoption among Southern Thailand farmers. A single export rejection can cost 100,000+ THB. Farmers who grow for the Chinese export market are <em>already</em> motivated to adopt:</p>
+      <ul>
+        <li>Accurate spray timing (not over-application near harvest)</li>
+        <li>Branded products with known residue profiles</li>
+        <li>Documented spray records (traceability)</li>
+      </ul>
+      <p>This is a grower segment already at Stage 3–4 adoption readiness.</p>
+    </div>
+  </div>
+
+  <div class="syn-angle">
+    <div class="syn-label">Syngenta Lighthouse Angle — The Synthesis</div>
+    <p>The four agronomic insight modules above converge on the same digital transformation argument: <strong>the agronomic knowledge gap is the commercial opportunity.</strong> Thai farmers are not unintelligent — they are under-informed and under-served with actionable information at the moment they need it.</p>
+    <p>A grower who knows <em>which growth stage is critical for blast control</em> buys Armure. A grower who knows <em>their BPH population has neonicotinoid resistance</em> buys Plenum. A grower who knows <em>this season's Simodis window is 72 hours wide at durian flowering</em> calls the field rep. <strong>Every piece of agronomic intelligence Syngenta can deliver — via LINE, via drone operator, via field team — is a commercial event waiting to happen.</strong></p>
+    <p>That is the lighthouse proof of concept. Not a new app. Not a new channel. A new intelligence layer on top of existing trust relationships — proving that the grower who knows more, earns more, and stays loyal to the brand that taught them.</p>
+  </div>
+</div>
+
+</div><!-- end .main -->
+
+<div style="background:var(--earth);padding:20px 48px;margin-top:0;">
+  <p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;">Module B · Thailand Lighthouse Intelligence Series · Compiled for Pawitra Jittasen · Syngenta Thailand Digital Transformation Lead · May 2026 · Internal Use Only</p>
+</div>
+
+</body>
+</html>
