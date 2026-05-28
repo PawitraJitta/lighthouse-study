@@ -12,9 +12,16 @@ export default async function middleware(request) {
     return;
   }
 
-  // Check auth cookie
-  const cookie = request.cookies.get('lighthouse_auth');
-  if (cookie?.value === 'granted') {
+  // Parse cookie from header manually
+  const cookieHeader = request.headers.get('cookie') || '';
+  const cookies = Object.fromEntries(
+    cookieHeader.split(';').map(c => {
+      const [k, ...v] = c.trim().split('=');
+      return [k, v.join('=')];
+    })
+  );
+
+  if (cookies['lighthouse_auth'] === 'granted') {
     return;
   }
 
