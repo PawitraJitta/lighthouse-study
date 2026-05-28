@@ -1,37 +1,29 @@
-import { NextResponse } from 'next/server';
+export default async function middleware(request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
 
-const PASSWORD = process.env.SITE_PASSWORD || 'lighthouse2026';
-const COOKIE_NAME = 'lighthouse_auth';
-const COOKIE_VALUE = 'granted';
-
-export function middleware(request) {
-  const { pathname } = request.nextUrl;
-
-  // Allow login page and API route through
+  // Allow login page and auth API through
   if (pathname === '/login.html' || pathname.startsWith('/api/auth')) {
-    return NextResponse.next();
+    return;
   }
 
-  // Allow static assets (css, js, images, fonts)
-  if (
-    pathname.startsWith('/_next') ||
-    pathname.match(/\.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf)$/)
-  ) {
-    return NextResponse.next();
+  // Allow static assets
+  if (pathname.match(/\.(css|js|ico|png|jpg|jpeg|gif|svg|woff|woff2|ttf)$/)) {
+    return;
   }
 
   // Check auth cookie
-  const cookie = request.cookies.get(COOKIE_NAME);
-  if (cookie?.value === COOKIE_VALUE) {
-    return NextResponse.next();
+  const cookie = request.cookies.get('lighthouse_auth');
+  if (cookie?.value === 'granted') {
+    return;
   }
 
-  // Redirect to login, preserve intended destination
+  // Redirect to login
   const loginUrl = new URL('/login.html', request.url);
   loginUrl.searchParams.set('next', pathname);
-  return NextResponse.redirect(loginUrl);
+  return Response.redirect(loginUrl, 302);
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico).*)'],
+  matcher: ['/((?!_vercel|favicon.ico).*)'],
 };
