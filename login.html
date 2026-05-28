@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syngenta Thailand · Lighthouse — Access</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Sarabun:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap');
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', 'Sarabun', sans-serif;
+    background: #0D1117;
+    color: #E6EDF3;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,133,63,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,133,63,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 400px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 20px;
+    padding: 40px 36px 36px;
+    backdrop-filter: blur(12px);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .brand-logo {
+    width: 36px; height: 36px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, #00853F, #005C2B);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 700; color: white;
+    flex-shrink: 0;
+  }
+  .brand-text .title { font-size: 13px; font-weight: 600; color: #E6EDF3; }
+  .brand-text .sub   { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+
+  .heading {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    line-height: 1.2;
+    color: #F0F6FC;
+    margin-bottom: 6px;
+  }
+  .heading em { color: #6EE7A8; font-style: italic; }
+  .sub-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .input-wrap {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  input[type="password"] {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 13px 48px 13px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #E6EDF3;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    letter-spacing: 2px;
+  }
+  input[type="password"]::placeholder { letter-spacing: 0; color: rgba(255,255,255,0.2); }
+  input[type="password"]:focus {
+    border-color: rgba(0,133,63,0.5);
+    background: rgba(0,133,63,0.05);
+  }
+
+  .toggle-vis {
+    position: absolute;
+    right: 14px; top: 50%;
+    transform: translateY(-50%);
+    background: none; border: none; cursor: pointer;
+    color: rgba(255,255,255,0.3); font-size: 16px; padding: 4px;
+    transition: color 0.15s;
+  }
+  .toggle-vis:hover { color: rgba(255,255,255,0.6); }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #00853F, #006B32);
+    border: none; border-radius: 10px;
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    color: white; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    letter-spacing: 0.3px;
+  }
+  .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); opacity: 1; }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .error {
+    margin-top: 14px;
+    padding: 11px 14px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 8px;
+    font-size: 12.5px;
+    color: #FCA5A5;
+    display: none;
+  }
+  .error.show { display: block; }
+
+  .badge {
+    position: absolute;
+    top: -1px; right: 20px;
+    transform: translateY(-50%);
+    font-size: 9px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    background: rgba(0,133,63,0.2);
+    border: 1px solid rgba(0,133,63,0.35);
+    color: #6EE7A8;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  footer-note {
+    display: block;
+    margin-top: 24px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.15);
+    text-align: center;
+    line-height: 1.5;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <span class="badge">Internal Only</span>
+
+  <div class="brand">
+    <div class="brand-logo">S</div>
+    <div class="brand-text">
+      <div class="title">Syngenta Thailand</div>
+      <div class="sub">Digital Transformation Lead</div>
+    </div>
+  </div>
+
+  <h1 class="heading">Lighthouse<br><em>Intelligence Hub</em></h1>
+  <p class="sub-text">ใส่รหัสผ่านเพื่อเข้าถึงเอกสารวิเคราะห์เชิงกลยุทธ์<br>Enter password to access strategic intelligence</p>
+
+  <label class="field-label" for="pw">Password</label>
+  <div class="input-wrap">
+    <input type="password" id="pw" placeholder="Enter password" autocomplete="current-password" />
+    <button class="toggle-vis" type="button" onclick="toggleVis()" title="Show/hide">👁</button>
+  </div>
+
+  <button class="btn" id="submitBtn" onclick="doLogin()">Enter Hub →</button>
+  <div class="error" id="errMsg">รหัสผ่านไม่ถูกต้อง · Incorrect password</div>
+
+  <footer-note>Lighthouse Program · May 2026 · PawitraJitta</footer-note>
+</div>
+
+<script>
+  // Read ?next= param to redirect back after login
+  const params = new URLSearchParams(window.location.search);
+  const nextPage = params.get('next') || '/index.html';
+
+  document.getElementById('pw').addEventListener('keydown', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+
+  function toggleVis() {
+    const input = document.getElementById('pw');
+    input.type = input.type === 'password' ? 'text' : 'password';
+  }
+
+  async function doLogin() {
+    const pw = document.getElementById('pw').value;
+    const btn = document.getElementById('submitBtn');
+    const err = document.getElementById('errMsg');
+
+    if (!pw) return;
+    btn.disabled = true;
+    btn.textContent = 'Checking…';
+    err.classList.remove('show');
+
+    try {
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw, next: nextPage }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        window.location.href = data.redirect;
+      } else {
+        err.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Enter Hub →';
+        document.getElementById('pw').value = '';
+        document.getElementById('pw').focus();
+      }
+    } catch {
+      err.textContent = 'Connection error. Please try again.';
+      err.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Enter Hub →';
+    }
+  }
+</script>
+</body>
+</html>
