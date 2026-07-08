@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrichment — Diversity, Difficulty &amp; Engagement</title>
+<style>
+:root{--green:#147a5a;--green-2:#1D9E75;--green-soft:#E6F4EE;--green-line:#bfe0d2;
+--ink:#1a1f1d;--muted:#63706b;--bg:#f6f8f7;--card:#fff;--line:#e4e9e7;
+--amber:#b57614;--amber-soft:#f7edd6;--blue:#2f5e8a;--blue-soft:#e8eff6;--red:#b5432e;--chip:#eef2f0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+color:var(--ink);background:var(--bg);line-height:1.45;padding:28px 20px 60px}
+.wrap{max-width:1200px;margin:0 auto}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green-2)}
+h1{font-size:26px;font-weight:750;margin:5px 0 5px}
+.sub{font-size:14.5px;color:var(--muted);max-width:900px;margin-bottom:22px}
+.sec{font-size:12.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--green);margin:26px 0 11px}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:8px}
+.frow{display:flex;align-items:center;gap:14px}
+.fbar{height:52px;border-radius:9px;display:flex;align-items:center;padding:0 18px;color:#fff;font-weight:600;position:relative}
+.f1{background:#9aa39f;width:100%} .f2{background:var(--green-2);width:60%} .f3{background:var(--green);width:22%}
+.fbar .fn{font-size:19px;font-weight:750} .fbar .fl{font-size:12px;margin-left:10px;opacity:.95;font-weight:500}
+.fmeta{font-size:12.3px;color:var(--muted);flex:1}
+.fmeta b{color:var(--ink)}
+.ftag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:9px;background:#eef2f0;color:#4a524e;margin-left:8px}
+.ftag.m{background:var(--green-soft);color:var(--green)}
+.gap{font-size:12.3px;color:var(--red);margin-top:6px}
+
+/* diversity stats */
+.dstats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:6px}
+.ds{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:12px 14px;text-align:center}
+.ds .n{font-size:22px;font-weight:750;color:var(--green)}
+.ds .l{font-size:11.5px;color:var(--muted)}
+
+/* difficulty bands */
+.bands{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.band{border-radius:12px;padding:14px 15px;border:1px solid var(--line);background:var(--card)}
+.band.low{border-top:3px solid var(--green-2)} .band.med{border-top:3px solid var(--amber)} .band.high{border-top:3px solid var(--red)}
+.band .bh{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}
+.band .bn{font-size:15px;font-weight:700}
+.band.low .bn{color:var(--green)} .band.med .bn{color:var(--amber)} .band.high .bn{color:var(--red)}
+.band .bc{font-size:12px;color:var(--muted)}
+.band .why{font-size:11.8px;color:var(--muted);margin-bottom:9px}
+.dom{display:flex;justify-content:space-between;font-size:12.3px;padding:4px 0;border-top:1px solid #f1f4f2}
+.dom:first-of-type{border-top:none}
+.dom .dn{text-transform:capitalize;font-weight:600}
+.dom .da{color:var(--muted)}
+.strat{font-size:11.6px;margin-top:9px;padding-top:8px;border-top:1px dashed var(--line);color:#3a423f}
+
+/* engagement */
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:8px}
+th,td{padding:9px 12px;font-size:12.4px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--green);color:#fff;font-weight:600;font-size:11.5px}
+tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:#f9fbfa}
+.mk{font-weight:650}
+.cov{background:var(--green);color:#fff;border-radius:12px;padding:16px 20px;margin-top:12px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.cov .eyebrow{color:#a9dcc9}
+.cov h3{font-size:17px;font-weight:750;margin:3px 0}
+.cov p{font-size:12.7px;color:#dff5ec}
+.cov .big{text-align:right;font-size:13px;color:#c7e8db;line-height:1.9}
+.cov .big b{color:#fff;font-size:20px}
+@media(max-width:820px){.dstats{grid-template-columns:repeat(2,1fr)}.bands{grid-template-columns:1fr}.cov .big{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="eyebrow">Digital Transformation · Thailand · Vendor reference (Rocket)</div>
+  <h1>Enrichment — Diversity, Difficulty &amp; Engagement</h1>
+  <div class="sub">Enrichment is not one task. It spans a diverse set of data types of uneven difficulty, on a base where only a fraction is individually measurable today. This is the context behind the KPI targets.</div>
+
+  <div class="sec">1 · The addressable base — who we can reach &amp; measure</div>
+  <div class="funnel">
+    <div class="frow">
+      <div class="fbar f1"><span class="fn">170,501</span><span class="fl">CRM contacts</span></div>
+      <div class="fmeta"><b>All CRM records</b> — mostly phone / SMS only. <span class="ftag">not on LINE</span> Individually reachable by SMS, but not pushable or measurable on LINE.</div>
+    </div>
+    <div class="frow">
+      <div class="fbar f2"><span class="fn">50,000</span><span class="fl">LINE followers</span></div>
+      <div class="fmeta"><b>Reachable on LINE</b> via broadcast. <span class="ftag">aggregate only</span> Engagement measurable in aggregate — but anonymous until identified.</div>
+    </div>
+    <div class="frow">
+      <div class="fbar f3"><span class="fn">6,227</span><span class="fl">identified</span></div>
+      <div class="fmeta"><b>LINE UID + CRM profile</b> — pushable to the individual. <span class="ftag m">fully measurable</span> The only base where engagement is measured per grower today.</div>
+    </div>
+  </div>
+  <div class="gap">Enrichment gap: ~43,773 blank followers (reachable but anonymous) to identify · 164,274 SMS-only contacts to convert to LINE. Identified base = 12.5% of followers · 3.7% of CRM.</div>
+
+  <div class="sec">2 · Enrichment diversity — one goal, many kinds of data</div>
+  <div class="dstats">
+    <div class="ds"><div class="n">101</div><div class="l">attributes</div></div>
+    <div class="ds"><div class="n">18</div><div class="l">data domains</div></div>
+    <div class="ds"><div class="n">4</div><div class="l">entities</div></div>
+    <div class="ds"><div class="n">3</div><div class="l">depth tiers</div></div>
+    <div class="ds"><div class="n">5</div><div class="l">collection methods</div></div>
+  </div>
+  <div class="sub" style="margin:8px 0 0">Grower · Dealer · Product-relationship · Market — collected via self-report, behavioral, computed, external feed, and time-series. No single tactic covers it; difficulty varies sharply by type.</div>
+
+  <div class="sec">3 · Diversity × Difficulty — where the effort really sits</div>
+  <div class="bands">
+    <div class="band low">
+      <div class="bh"><span class="bn">Low</span><span class="bc">47 attrs</span></div>
+      <div class="why">Auto-collected, or simple identity/farm self-report</div>
+      <div class="dom"><span class="dn">score</span><span class="da">9 · computed</span></div>
+      <div class="dom"><span class="dn">context</span><span class="da">8 · simple</span></div>
+      <div class="dom"><span class="dn">behavior</span><span class="da">7 · behavioral</span></div>
+      <div class="dom"><span class="dn">identity</span><span class="da">7 · simple</span></div>
+      <div class="dom"><span class="dn">price</span><span class="da">5 · gov feed</span></div>
+      <div class="dom"><span class="dn">temporal · external · rollup · link</span><span class="da">11 · auto</span></div>
+      <div class="strat"><b>Strategy:</b> quick wins — front-load. Mostly no grower ask.</div>
+    </div>
+    <div class="band med">
+      <div class="bh"><span class="bn">Medium</span><span class="bc">45 attrs</span></div>
+      <div class="why">Self-report — needs active engagement to collect</div>
+      <div class="dom"><span class="dn">pest</span><span class="da">10 · quiz</span></div>
+      <div class="dom"><span class="dn">dealer</span><span class="da">8 · trade</span></div>
+      <div class="dom"><span class="dn">rice_agro</span><span class="da">8 · quiz</span></div>
+      <div class="dom"><span class="dn">farm</span><span class="da">6 · form</span></div>
+      <div class="dom"><span class="dn">econ</span><span class="da">5 · form</span></div>
+      <div class="dom"><span class="dn">input · purchase</span><span class="da">8 · survey</span></div>
+      <div class="strat"><b>Strategy:</b> the campaign engine's core job — season-timed value exchange.</div>
+    </div>
+    <div class="band high">
+      <div class="bh"><span class="bn">High</span><span class="bc">9 attrs</span></div>
+      <div class="why">Deep self-report — only from highly engaged growers</div>
+      <div class="dom"><span class="dn">product (funnel/barrier/fit)</span><span class="da">7</span></div>
+      <div class="dom"><span class="dn">competitive (brand switch)</span><span class="da">2</span></div>
+      <div class="strat"><b>Strategy:</b> reachable only through high engagement — this is <b>why engagement rate matters</b>.</div>
+    </div>
+  </div>
+
+  <div class="sec">4 · Engagement rate — what is measurable, and on which base</div>
+  <table>
+    <thead><tr><th>Engagement metric</th><th>Formula</th><th>Denominator (base)</th><th>Granularity</th><th>Starting target</th></tr></thead>
+    <tbody>
+      <tr><td class="mk">Broadcast open rate</td><td>Opens ÷ sent</td><td>50,000 followers</td><td>Aggregate (anonymous)</td><td>track baseline</td></tr>
+      <tr><td class="mk">Targeted response rate</td><td>Responded ÷ pushed</td><td>Identified base (6,227 →)</td><td>Per grower</td><td>≥ 15%</td></tr>
+      <tr><td class="mk">Quiz start rate</td><td>Started ÷ reached</td><td>Campaign audience</td><td>Per grower*</td><td>≥ 20%</td></tr>
+      <tr><td class="mk">Completion rate</td><td>Completed ÷ started</td><td>Starters</td><td>Per grower*</td><td>≥ 60%</td></tr>
+      <tr><td class="mk">Repeat engagement rate</td><td>Returning ÷ prior engaged</td><td>Engaged base</td><td>Per grower</td><td>≥ 30% (Q4)</td></tr>
+    </tbody>
+  </table>
+  <div class="sub" style="margin:2px 0 0">*Per-grower only where the responder is identified. Anonymous broadcast engagement stays aggregate until enrichment links a LINE UID.</div>
+
+  <div class="cov">
+    <div>
+      <div class="eyebrow">The metric that ties enrichment to engagement</div>
+      <h3>Engagement coverage — % of followers we can measure individually</h3>
+      <p>= identified profiles ÷ LINE followers. Every enriched profile raises it. This is how enrichment converts anonymous reach into measurable engagement.</p>
+    </div>
+    <div class="big">
+      <div>Today <b>12.5%</b></div>
+      <div>6,227 of 50,000 → grows with every profile</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
